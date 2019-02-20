@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.mg.Dialog.SaveSimpleWorkoutDialog;
 
-public class SimpleTimerMenuActivity extends AppCompatActivity {
+public class SimpleTimerMenuActivity extends AppCompatActivity implements SaveSimpleWorkoutDialog.SimpleWorkoutDialogListener {
 
     private Button backBtn;
     private Button startSimpleTimerButton;
@@ -90,7 +90,31 @@ public class SimpleTimerMenuActivity extends AppCompatActivity {
     private void openDialog(){
         SaveSimpleWorkoutDialog saveWorkoutDialog = new SaveSimpleWorkoutDialog();
         saveWorkoutDialog.show(getSupportFragmentManager(), "WorkoutDialog");
+    }
+    @Override
+    public void applyToDatabase(String workoutName){
+        workoutTimeMinutes = findViewById(R.id.setWorkoutTimeMinutes);
+        workoutTimeSeconds = findViewById(R.id.setWorkoutTimeSeconds);
+        intervalInput = findViewById(R.id.setIntervals);
 
+        String intervalInputString = intervalInput.getText().toString();
+        String workoutTimeMinutesString = workoutTimeMinutes.getText().toString();
+        String workoutTimeSecondsString = workoutTimeSeconds.getText().toString();
+
+        intervalsLeft = Integer.parseInt(intervalInputString);
+        timeToDecrement = (Integer.parseInt(workoutTimeMinutesString) * 60000) + Integer.parseInt(workoutTimeSecondsString) * 1000;
+
+        restTimeMinutes = findViewById(R.id.setRestTimeMinutes);
+        restTimeSeconds = findViewById(R.id.setRestTimeSeconds);
+
+        String restTimeMinutesString = restTimeMinutes.getText().toString();
+        String restTimeSecondsString = restTimeSeconds.getText().toString();
+        restTimeToDecrement = (Integer.parseInt(restTimeMinutesString) * 60000) + Integer.parseInt(restTimeSecondsString) * 1000;
+        //put data into databserestTimeToDecrement
+        //restTimeToDecrement
+        //intervalInput
+        //timeToDecrement
+        //workoutName
     }
 
 }

@@ -188,7 +188,7 @@
         android:text="Back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.028"
+        app:layout_constraintHorizontal_bias="0.103"
         app:layout_constraintStart_toEndOf="@+id/simpleTimerSave_Btn"
         app:layout_constraintTop_toBottomOf="@+id/simpleTimerStart_Btn"
         app:layout_constraintVertical_bias="0.09" />
@@ -197,14 +197,13 @@
         android:id="@+id/simpleTimerSave_Btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="112dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:text="SAVE"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/simpleTimerStart_Btn"
-        app:layout_constraintVertical_bias="0.09" />
+        app:layout_constraintVertical_bias="0.09"
+        tools:layout_editor_absoluteX="103dp" />
 
     <Button
         android:id="@+id/simpleTimerStart_Btn"
