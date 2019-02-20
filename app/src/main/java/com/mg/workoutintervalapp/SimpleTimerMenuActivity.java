@@ -8,8 +8,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mg.Dialog.SaveSimpleWorkoutDialog;
+import com.mg.database.DatabaseHelper;
 
 public class SimpleTimerMenuActivity extends AppCompatActivity implements SaveSimpleWorkoutDialog.SimpleWorkoutDialogListener {
 
@@ -27,7 +29,7 @@ public class SimpleTimerMenuActivity extends AppCompatActivity implements SaveSi
     private int intervalsLeft;
 
     private Intent simpleTimerIntent;
-
+    DatabaseHelper mDatabaseHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +43,7 @@ public class SimpleTimerMenuActivity extends AppCompatActivity implements SaveSi
         startSimpleTimerButton = findViewById(R.id.simpleTimerStart_Btn);
         backBtn = findViewById(R.id.simpleTimerBack_Btn);
         simpleTimerIntent = new Intent(this, SimpleTimerActivity.class);
-
+        mDatabaseHelper = new DatabaseHelper(this);
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,23 +100,26 @@ public class SimpleTimerMenuActivity extends AppCompatActivity implements SaveSi
         intervalInput = findViewById(R.id.setIntervals);
 
         String intervalInputString = intervalInput.getText().toString();
+
         String workoutTimeMinutesString = workoutTimeMinutes.getText().toString();
         String workoutTimeSecondsString = workoutTimeSeconds.getText().toString();
-
-        intervalsLeft = Integer.parseInt(intervalInputString);
-        timeToDecrement = (Integer.parseInt(workoutTimeMinutesString) * 60000) + Integer.parseInt(workoutTimeSecondsString) * 1000;
+        String dbWorkoutTime = workoutTimeMinutesString + ":" + workoutTimeSecondsString;
 
         restTimeMinutes = findViewById(R.id.setRestTimeMinutes);
         restTimeSeconds = findViewById(R.id.setRestTimeSeconds);
 
         String restTimeMinutesString = restTimeMinutes.getText().toString();
         String restTimeSecondsString = restTimeSeconds.getText().toString();
-        restTimeToDecrement = (Integer.parseInt(restTimeMinutesString) * 60000) + Integer.parseInt(restTimeSecondsString) * 1000;
+        String dbRestTime = restTimeMinutesString + ":" + restTimeSecondsString;
         //put data into databserestTimeToDecrement
-        //restTimeToDecrement
-        //intervalInput
-        //timeToDecrement
-        //workoutName
+        //workout name, workout time, rest time, intervals
+        boolean insertData = mDatabaseHelper.addData(workoutName,dbWorkoutTime, dbRestTime, intervalInputString);
+
+        if(insertData){
+            Toast.makeText(SimpleTimerMenuActivity.this, "Workout Successfully Saved!", Toast.LENGTH_LONG).show();
+        }else{
+            Toast.makeText(SimpleTimerMenuActivity.this, "An Error Occurred!", Toast.LENGTH_LONG).show();
+        }
     }
 
 }

@@ -9,11 +9,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.mg.database.DatabaseHelper;
+
 public class MainActivity extends AppCompatActivity {
 
-    private Intent simpleTimerIntent;
-    private Button startButton;
-
+    private Intent simpleTimerIntent, loadTimerIntent;
+    private Button startButton, loadButton;
 
 
     @Override
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
         startButton = findViewById(R.id.simpleWorkout_Btn);
         simpleTimerIntent = new Intent(this, SimpleTimerMenuActivity.class);
+        loadTimerIntent = new Intent(this, LoadTimerActivity.class);
 
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,7 +37,12 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(simpleTimerIntent);
             }
         });
-
+        loadButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(loadTimerIntent);
+            }
+        });
     }
 
 }
