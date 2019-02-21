@@ -29,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
 
         startButton = findViewById(R.id.simpleWorkout_Btn);
         simpleTimerIntent = new Intent(this, SimpleTimerMenuActivity.class);
+
+        loadButton = findViewById(R.id.MainLoad_Btn);
         loadTimerIntent = new Intent(this, LoadTimerActivity.class);
 
         startButton.setOnClickListener(new View.OnClickListener() {

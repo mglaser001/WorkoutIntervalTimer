@@ -61,7 +61,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
             return true;
         }
     }
-    public Cursor showWorkoutDataBase(){
+    public Cursor getDatabaseContent(){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor data = db.rawQuery("SELECT * FROM " + TABLE_NAME,null);
         return data;
