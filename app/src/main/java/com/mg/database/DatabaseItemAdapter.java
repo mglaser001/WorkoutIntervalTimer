@@ -49,18 +49,18 @@ public class DatabaseItemAdapter extends RecyclerView.Adapter<DatabaseItemAdapte
                     }
                 }
             });
-//            mDeleteButton.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    //Toast.makeText(v.getContext(), "Workout Successfully Saved!", Toast.LENGTH_LONG).show();
-//                    if(listener != null){
-//                        int position = getAdapterPosition();
-//                        if(position != RecyclerView.NO_POSITION){
-//                            listener.onItemClick(position);
-//                        }
-//                    }
-//                }
-//            });
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //Toast.makeText(v.getContext(), "Workout Successfully Saved!", Toast.LENGTH_LONG).show();
+                    if(listener != null){
+                        int position = getAdapterPosition();
+                        if(position != RecyclerView.NO_POSITION){
+                            listener.onItemClick(position);
+                        }
+                    }
+                }
+            });
         }
     }
     public DatabaseItemAdapter(ArrayList<DataBaseViewItems> dataBaseViewItemsList){

@@ -1,25 +1,29 @@
 package com.mg.workoutintervalapp;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mg.Dialog.LoadWorkoutDialog;
+import com.mg.Dialog.SaveSimpleWorkoutDialog;
 import com.mg.database.DataBaseViewItems;
 import com.mg.database.DatabaseHelper;
 import com.mg.database.DatabaseItemAdapter;
 
 import java.util.ArrayList;
 
-public class LoadTimerActivity extends AppCompatActivity {
+public class LoadTimerActivity extends AppCompatActivity  implements LoadWorkoutDialog.LoadWorkoutDialogListener{
     private ArrayList<DataBaseViewItems> dataBaseViewItems;
     private RecyclerView mRecyclerView;
     private DatabaseItemAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-
     DatabaseHelper databaseHelper;
+    DataBaseViewItems selectedDBItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +42,13 @@ public class LoadTimerActivity extends AppCompatActivity {
             @Override
             public void onItemClick(int position) {
                 //show item details in dialog
-                DataBaseViewItems selectedDBItem = dataBaseViewItems.get(position);
+                selectedDBItem = dataBaseViewItems.get(position);
+                openDialog();
             }
 
             @Override
             public void onDeleteClick(int position) {
-                DataBaseViewItems selectedDBItem = dataBaseViewItems.get(position);
+                selectedDBItem = dataBaseViewItems.get(position);
                 databaseHelper.deleteDatabaseItem(Integer.parseInt(selectedDBItem.getmWorkoutId()),selectedDBItem.getWorkoutName());
                 dataBaseViewItems.remove(position);
 
@@ -56,7 +61,6 @@ public class LoadTimerActivity extends AppCompatActivity {
         while(databaseContent.moveToNext()){
             dataBaseViewItems.add(new DataBaseViewItems(databaseContent.getString(0),databaseContent.getString(1),databaseContent.getString(2)));
         }
-        // dataBaseViewItems.add(new DataBaseViewItems("ex1", "ex2"));
     }
     private void buildRecyclerView(){
         mRecyclerView = findViewById(R.id.DBRecyclerView);
@@ -66,6 +70,15 @@ public class LoadTimerActivity extends AppCompatActivity {
 
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
+
     }
+    private void openDialog(){
+        LoadWorkoutDialog loadWorkoutDialog = new LoadWorkoutDialog();
+        loadWorkoutDialog.show(getSupportFragmentManager(), "WorkoutDialog");
+    }
+    @Override
+    public void dialogListener(String name, String time, String rest, String interval, String date){
+
+    };
 
 }

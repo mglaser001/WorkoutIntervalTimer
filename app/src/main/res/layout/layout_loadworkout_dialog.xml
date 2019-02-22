@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:hint="Workout Name"
+        android:id="@+id/load_dialog_nametv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text = "Line1"
+        android:textSize="20dp"/>
+
+    <TextView
+        android:id="@+id/load_dialog_workouttimetv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/load_dialog_nametv"
+        android:hint="Workout Time"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/load_dialog_workoutresttv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/load_dialog_workouttimetv"
+        android:hint="Rest Time"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/load_dialog_workoutdatetv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/load_dialog_workoutresttv"
+        android:hint="Date Created"
+        android:textSize="20dp" />
+</RelativeLayout>

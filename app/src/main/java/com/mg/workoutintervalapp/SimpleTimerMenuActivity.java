@@ -111,7 +111,7 @@ public class SimpleTimerMenuActivity extends AppCompatActivity implements SaveSi
         String restTimeMinutesString = restTimeMinutes.getText().toString();
         String restTimeSecondsString = restTimeSeconds.getText().toString();
         String dbRestTime = restTimeMinutesString + ":" + restTimeSecondsString;
-        //put data into databserestTimeToDecrement
+
         //workout name, workout time, rest time, intervals
         boolean insertData = mDatabaseHelper.addData(workoutName,dbWorkoutTime, dbRestTime, intervalInputString);
 
