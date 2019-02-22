@@ -14,27 +14,51 @@ import com.mg.database.DatabaseItemAdapter;
 import java.util.ArrayList;
 
 public class LoadTimerActivity extends AppCompatActivity {
-
+    private ArrayList<DataBaseViewItems> dataBaseViewItems;
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private DatabaseItemAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+
     DatabaseHelper databaseHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_load_timer);
 
-        ArrayList<DataBaseViewItems> dataBaseViewItems = new ArrayList<>();
+        dataBaseViewItems = new ArrayList<>();
         databaseHelper = new DatabaseHelper(this);
         Cursor databaseContent = databaseHelper.getDatabaseContent();
 
-        while(databaseContent.moveToNext()){
-            dataBaseViewItems.add(new DataBaseViewItems(databaseContent.getString(1),databaseContent.getString(2)));
-        }
-       // dataBaseViewItems.add(new DataBaseViewItems("ex1", "ex2"));
-       // dataBaseViewItems.add(new DataBaseViewItems("ex1", "ex2"));
-       // dataBaseViewItems.add(new DataBaseViewItems("ex1", "ex2"));
+        createList(databaseContent);
+        buildRecyclerView();
 
+
+        mAdapter.setOnItemClickListener(new DatabaseItemAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                //show item details in dialog
+                DataBaseViewItems selectedDBItem = dataBaseViewItems.get(position);
+            }
+
+            @Override
+            public void onDeleteClick(int position) {
+                DataBaseViewItems selectedDBItem = dataBaseViewItems.get(position);
+                databaseHelper.deleteDatabaseItem(Integer.parseInt(selectedDBItem.getmWorkoutId()),selectedDBItem.getWorkoutName());
+                dataBaseViewItems.remove(position);
+
+                mAdapter.notifyItemRemoved(position);
+
+            }
+        });
+    }
+    public void createList(Cursor databaseContent){
+        while(databaseContent.moveToNext()){
+            dataBaseViewItems.add(new DataBaseViewItems(databaseContent.getString(0),databaseContent.getString(1),databaseContent.getString(2)));
+        }
+        // dataBaseViewItems.add(new DataBaseViewItems("ex1", "ex2"));
+    }
+    private void buildRecyclerView(){
         mRecyclerView = findViewById(R.id.DBRecyclerView);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
@@ -43,4 +67,5 @@ public class LoadTimerActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
     }
+
 }

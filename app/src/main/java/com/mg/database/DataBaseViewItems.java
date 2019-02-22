@@ -3,8 +3,10 @@ package com.mg.database;
 public class DataBaseViewItems {
     private String mWorkoutName;
     private String mWorkoutTime;
+    private String mWorkoutId;
 
-    public DataBaseViewItems(String workoutName, String workoutTime){
+    public DataBaseViewItems( String workoutId, String workoutName, String workoutTime){
+        mWorkoutId = workoutId;
         mWorkoutName = workoutName;
         mWorkoutTime = workoutTime;
     }
@@ -15,5 +17,9 @@ public class DataBaseViewItems {
 
     public String getWorkoutTime() {
         return mWorkoutTime;
+    }
+
+    public String getmWorkoutId() {
+        return mWorkoutId;
     }
 }
