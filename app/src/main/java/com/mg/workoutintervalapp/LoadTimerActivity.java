@@ -59,7 +59,8 @@ public class LoadTimerActivity extends AppCompatActivity  implements LoadWorkout
     }
     public void createList(Cursor databaseContent){
         while(databaseContent.moveToNext()){
-            dataBaseViewItems.add(new DataBaseViewItems(databaseContent.getString(0),databaseContent.getString(1),databaseContent.getString(2)));
+            dataBaseViewItems.add(new DataBaseViewItems(databaseContent.getString(0),databaseContent.getString(1),databaseContent.getString(2),
+                    databaseContent.getString(3),databaseContent.getString(4),databaseContent.getString(5)));
         }
     }
     private void buildRecyclerView(){
@@ -77,8 +78,8 @@ public class LoadTimerActivity extends AppCompatActivity  implements LoadWorkout
         loadWorkoutDialog.show(getSupportFragmentManager(), "WorkoutDialog");
     }
     @Override
-    public void dialogListener(String name, String time, String rest, String interval, String date){
-
+    public DataBaseViewItems dialogListener(){
+        return selectedDBItem;
     };
 
 }

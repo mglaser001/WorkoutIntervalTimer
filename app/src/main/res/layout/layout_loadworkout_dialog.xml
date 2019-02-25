@@ -9,7 +9,7 @@
         android:id="@+id/load_dialog_nametv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text = "Line1"
+        android:text = "Workout Name"
         android:textSize="20dp"/>
 
     <TextView
@@ -27,12 +27,19 @@
         android:layout_below="@id/load_dialog_workouttimetv"
         android:hint="Rest Time"
         android:textSize="20dp" />
+    <TextView
+        android:id="@+id/load_dialog_workoutintervalstv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/load_dialog_workoutresttv"
+        android:hint="Intervals"
+        android:textSize="20dp" />
 
     <TextView
         android:id="@+id/load_dialog_workoutdatetv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/load_dialog_workoutresttv"
+        android:layout_below="@id/load_dialog_workoutintervalstv"
         android:hint="Date Created"
         android:textSize="20dp" />
 </RelativeLayout>

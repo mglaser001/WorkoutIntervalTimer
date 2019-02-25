@@ -38,7 +38,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     }
     public boolean addData(String workoutName, String workoutTime, String workoutRest, String workoutInterval) {
 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
         Date date = new Date();
         String dateCreated = sdf.format(date);
 

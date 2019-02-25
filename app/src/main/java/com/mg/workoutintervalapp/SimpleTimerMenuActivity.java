@@ -99,7 +99,7 @@ public class SimpleTimerMenuActivity extends AppCompatActivity implements SaveSi
         workoutTimeSeconds = findViewById(R.id.setWorkoutTimeSeconds);
         intervalInput = findViewById(R.id.setIntervals);
 
-        String intervalInputString = intervalInput.getText().toString();
+        String dbIntervals = intervalInput.getText().toString();
 
         String workoutTimeMinutesString = workoutTimeMinutes.getText().toString();
         String workoutTimeSecondsString = workoutTimeSeconds.getText().toString();
@@ -113,7 +113,7 @@ public class SimpleTimerMenuActivity extends AppCompatActivity implements SaveSi
         String dbRestTime = restTimeMinutesString + ":" + restTimeSecondsString;
 
         //workout name, workout time, rest time, intervals
-        boolean insertData = mDatabaseHelper.addData(workoutName,dbWorkoutTime, dbRestTime, intervalInputString);
+        boolean insertData = mDatabaseHelper.addData(workoutName,dbWorkoutTime, dbRestTime, dbIntervals);
 
         if(insertData){
             Toast.makeText(SimpleTimerMenuActivity.this, "Workout Successfully Saved!", Toast.LENGTH_LONG).show();
