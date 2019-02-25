@@ -22,6 +22,7 @@ public class LoadWorkoutDialog extends AppCompatDialogFragment {
     private TextView workoutRestTV;
     private TextView workoutDateTV;
     private TextView workoutIntervalsTV;
+    private DataBaseViewItems selectedItem;
     private LoadWorkoutDialogListener listener;
     private Intent TimerIntent;
     @Override
@@ -33,7 +34,7 @@ public class LoadWorkoutDialog extends AppCompatDialogFragment {
         TimerIntent = new Intent(getContext(), SimpleTimerActivity.class);
 
         setDialogTextView(view);
-        DataBaseViewItems selectedItem = listener.dialogListener();
+        selectedItem = listener.dialogListener();
         addDialogVariables(selectedItem);
 
         builder.setView(view)
@@ -47,8 +48,8 @@ public class LoadWorkoutDialog extends AppCompatDialogFragment {
                 .setPositiveButton("Start", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //start workout
-                        //startActivity(TimerIntent);
+                        putExtrasForTimerIntent(selectedItem , TimerIntent);
+                        startActivity(TimerIntent);
                     }
                 });
 
@@ -66,6 +67,19 @@ public class LoadWorkoutDialog extends AppCompatDialogFragment {
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + "must implement LoadWorkoutDialog");
         }
+    }
+    private void putExtrasForTimerIntent(DataBaseViewItems item, Intent intent){
+        String workoutTimeMinutes = item.getWorkoutTime().split(":")[0];
+        String workoutTimeSeconds = item.getWorkoutTime().split(":")[1];
+        long workoutTime = (Integer.parseInt(workoutTimeMinutes) * 60000) + Integer.parseInt(workoutTimeSeconds) * 1000;
+
+        String restTimeMinutes = item.getWorkoutRest().split(":")[0];
+        String restTimeSeconds = item.getWorkoutRest().split(":")[1];
+        long restTime = (Integer.parseInt(restTimeMinutes) * 60000) + Integer.parseInt(restTimeSeconds) * 1000;
+
+        intent.putExtra("timeToDecrement", workoutTime);
+        intent.putExtra("restTimeToDecrement",restTime );
+        intent.putExtra("intervalsLeft", Integer.parseInt(item.getWorkoutIntervals()));
     }
     public void addDialogVariables(DataBaseViewItems dataBaseViewItem){
         workoutNameTV.setText("Workout Name: " + dataBaseViewItem.getWorkoutName());

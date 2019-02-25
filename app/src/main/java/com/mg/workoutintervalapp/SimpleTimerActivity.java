@@ -59,6 +59,7 @@ public class SimpleTimerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 stopTime = true;
+                resetTimers();
                 finish();
             }
         });
@@ -66,7 +67,7 @@ public class SimpleTimerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 intervalsLeft = intervalsLeftforReset;
-                stopTime = true;
+                resetTimers();
                 startInterval();
             }
         });
@@ -147,6 +148,14 @@ public class SimpleTimerActivity extends AppCompatActivity {
         timeLeftText += seconds;
 
         countdownText.setText(timeLeftText);
+    }
+    private void resetTimers(){
+        if(countDownTimer2 != null){
+            countDownTimer2.cancel();
+        }
+        if(countDownTimer != null){
+            countDownTimer.cancel();
+        }
     }
     public void updateTimerText(String text) {
         countdownText.setText(text);
