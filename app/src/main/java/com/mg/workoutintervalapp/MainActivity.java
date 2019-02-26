@@ -13,8 +13,8 @@ import com.mg.database.DatabaseHelper;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Intent simpleTimerIntent, loadTimerIntent;
-    private Button startButton, loadButton;
+    private Intent simpleTimerIntent, loadTimerIntent, customTimerIntent;
+    private Button startSimpleButton, loadButton, startCustomButton;
 
 
     @Override
@@ -27,13 +27,16 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        startButton = findViewById(R.id.simpleWorkout_Btn);
+        startSimpleButton = findViewById(R.id.simpleWorkout_Btn);
         simpleTimerIntent = new Intent(this, SimpleTimerMenuActivity.class);
+
+        startCustomButton = findViewById(R.id.customWorkout_Btn);
+        customTimerIntent = new Intent(this, CustomTimerMenuActivity.class);
 
         loadButton = findViewById(R.id.MainLoad_Btn);
         loadTimerIntent = new Intent(this, LoadTimerActivity.class);
 
-        startButton.setOnClickListener(new View.OnClickListener() {
+        startSimpleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(simpleTimerIntent);
@@ -43,6 +46,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(loadTimerIntent);
+            }
+        });
+        startCustomButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(customTimerIntent);
             }
         });
     }
