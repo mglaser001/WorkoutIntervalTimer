@@ -2,8 +2,10 @@ package com.mg.workoutintervalapp;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.CountDownTimer;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -25,8 +27,9 @@ public class SimpleTimerActivity extends AppCompatActivity {
     private long timeToDecrement;
     private int intervalsLeft;
     private int intervalsLeftforReset;
-
+    ConstraintLayout timerLayout;
     private boolean stopTime = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +38,10 @@ public class SimpleTimerActivity extends AppCompatActivity {
         } catch (NullPointerException e) {
         }
         setContentView(R.layout.activity_simple_timer);
+
+        timerLayout = findViewById(R.id.simpleTimerLayout);
+
+
         bell = MediaPlayer.create(this,R.raw.boxingbell);
         intervalText = findViewById(R.id.interval_Text);
         countdownText = findViewById(R.id.countdown_Text);
@@ -76,6 +83,7 @@ public class SimpleTimerActivity extends AppCompatActivity {
         updateTimerText("Get Ready");
         updateInterval(Integer.toString(intervalsLeft));
         stopTime = false;
+        timerLayout.setBackgroundColor(Color.parseColor("#7D8E32"));
 
         countDownTimer2 = new CountDownTimer(threeSecondPrepare+200, 1000) {
             @Override
@@ -86,6 +94,7 @@ public class SimpleTimerActivity extends AppCompatActivity {
             @Override
             public void onFinish() {
                 if (intervalsLeft > 0) {
+                    bell.start();
                     startTimer(intervalsLeft);
                 }
             }
@@ -95,6 +104,7 @@ public class SimpleTimerActivity extends AppCompatActivity {
     public void startTimer(int intervals) {
         timeLeftInMilliseconds = timeToDecrement;
         updateInterval(Integer.toString(intervals));
+        timerLayout.setBackgroundColor(Color.parseColor("#11340B"));
 
         countDownTimer = new CountDownTimer(timeLeftInMilliseconds + 200, 1000) {
             @Override
@@ -106,7 +116,7 @@ public class SimpleTimerActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                bell.start();
+
                 countdownText.setText("0:00");
                 intervalsLeft--;
                 if(intervalsLeft > 0) {
@@ -119,6 +129,8 @@ public class SimpleTimerActivity extends AppCompatActivity {
     private void startRest() {
         updateRestTitle();
         timeLeftInMilliseconds = timeToDecrement_Rest;
+        timerLayout.setBackgroundColor(Color.parseColor("#791111"));
+
         countDownTimer2 = new CountDownTimer(timeLeftInMilliseconds + 200, 1000) {
             @Override
             public void onTick(long l) {

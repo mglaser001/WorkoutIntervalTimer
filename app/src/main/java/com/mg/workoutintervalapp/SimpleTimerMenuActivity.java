@@ -15,7 +15,6 @@ import com.mg.database.DatabaseHelper;
 
 public class SimpleTimerMenuActivity extends AppCompatActivity implements SaveSimpleWorkoutDialog.SimpleWorkoutDialogListener {
 
-    private Button backBtn;
     private Button startSimpleTimerButton;
     private Button saveSimpleTimerButton;
     private EditText workoutTimeMinutes;
@@ -41,15 +40,9 @@ public class SimpleTimerMenuActivity extends AppCompatActivity implements SaveSi
 
         saveSimpleTimerButton = findViewById(R.id.simpleTimerSave_Btn);
         startSimpleTimerButton = findViewById(R.id.simpleTimerStart_Btn);
-        backBtn = findViewById(R.id.simpleTimerBack_Btn);
+
         simpleTimerIntent = new Intent(this, SimpleTimerActivity.class);
         mDatabaseHelper = new DatabaseHelper(this);
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
 
         startSimpleTimerButton.setOnClickListener(new View.OnClickListener() {
             @Override

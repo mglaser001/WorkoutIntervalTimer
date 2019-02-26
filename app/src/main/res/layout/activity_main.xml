@@ -15,14 +15,14 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Start Simple Workout"
         android:background="@android:color/background_light"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="Start Simple Workout"
+        app:layout_constraintBottom_toTopOf="@+id/MainLoad_Btn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.373" />
+        app:layout_constraintVertical_bias="0.944" />
 
     <Button
         android:id="@+id/MainLoad_Btn"
@@ -32,14 +32,14 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Load Workout"
         android:background="@android:color/background_light"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="Load Workout"
+        app:layout_constraintBottom_toTopOf="@+id/customWorkout_Btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.483" />
+        app:layout_constraintVertical_bias="0.963" />
 
     <TextView
         android:id="@+id/menuTitle"
