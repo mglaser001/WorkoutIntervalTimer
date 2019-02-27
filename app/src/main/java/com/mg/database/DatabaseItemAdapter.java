@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,7 +30,7 @@ public class DatabaseItemAdapter extends RecyclerView.Adapter<DatabaseItemAdapte
     public static class DBViewHolder extends RecyclerView.ViewHolder{
         public TextView mWorkoutName;
         public TextView mWorkoutTime;
-        public Button mDeleteButton;
+        public ImageView mDeleteButton;
 
         public DBViewHolder(View itemView, final OnItemClickListener listener){
             super(itemView);

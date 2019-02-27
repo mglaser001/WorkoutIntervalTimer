@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="5dp"
     android:background="@color/cardview_dark_background"
     tools:context=".CustomTimerMenuActivity">
 
@@ -24,13 +25,13 @@
         android:layout_below="@id/custom_workoutName_ET"/>/>
     <Button
         android:id="@+id/custom_reps_Btn"
-        android:text="First workout repetition"
+        android:text="Repetition Workout"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_below="@id/custom_selectTitleTV"/>
     <Button
         android:id="@+id/custom_timed_Btn"
-        android:text="First workout repetition"
+        android:text="Timed workout"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_below="@id/custom_reps_Btn"/>

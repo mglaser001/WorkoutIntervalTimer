@@ -52,8 +52,17 @@ public class SimpleTimerMenuActivity extends AppCompatActivity implements SaveSi
                 intervalInput = findViewById(R.id.setIntervals);
 
                 String intervalInputString = intervalInput.getText().toString();
+                if(intervalInputString == null){
+                    intervalInputString = "1";
+                }
                 String workoutTimeMinutesString = workoutTimeMinutes.getText().toString();
+                if(workoutTimeMinutesString == null){
+                    workoutTimeMinutesString = "00";
+                }
                 String workoutTimeSecondsString = workoutTimeSeconds.getText().toString();
+                if(workoutTimeSecondsString == null){
+                    workoutTimeSecondsString = "00";
+                }
 
                 intervalsLeft = Integer.parseInt(intervalInputString);
                 timeToDecrement = (Integer.parseInt(workoutTimeMinutesString) * 60000) + Integer.parseInt(workoutTimeSecondsString) * 1000;
@@ -63,6 +72,12 @@ public class SimpleTimerMenuActivity extends AppCompatActivity implements SaveSi
 
                 String restTimeMinutesString = restTimeMinutes.getText().toString();
                 String restTimeSecondsString = restTimeSeconds.getText().toString();
+                if(restTimeMinutesString == null){
+                    restTimeMinutesString = "00";
+                }
+                if(restTimeSecondsString == null){
+                    restTimeSecondsString = "00";
+                }
                 restTimeToDecrement = (Integer.parseInt(restTimeMinutesString) * 60000) + Integer.parseInt(restTimeSecondsString) * 1000;
 
                 simpleTimerIntent.putExtra("restTimeToDecrement", restTimeToDecrement);
