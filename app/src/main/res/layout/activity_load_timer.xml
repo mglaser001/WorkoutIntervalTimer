@@ -9,6 +9,7 @@
         android:id="@+id/TitleContainer"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_margin="5dp"
         android:padding="5dp">
         <TextView
             android:id="@+id/TVNameTitle"
@@ -17,16 +18,7 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@android:color/black"
-            android:text="NAME"/>
-        <TextView
-            android:id="@+id/TVTimeTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:text="ID"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/black"
-            android:layout_centerHorizontal="true"/>
+            android:text="Load Previous Workouts"/>
     </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView

@@ -29,13 +29,11 @@ public class DatabaseItemAdapter extends RecyclerView.Adapter<DatabaseItemAdapte
     }
     public static class DBViewHolder extends RecyclerView.ViewHolder{
         public TextView mWorkoutName;
-        public TextView mWorkoutTime;
         public ImageView mDeleteButton;
 
         public DBViewHolder(View itemView, final OnItemClickListener listener){
             super(itemView);
             mWorkoutName = itemView.findViewById(R.id.workoutNameTV);
-            mWorkoutTime = itemView.findViewById(R.id.workoutTimeTV);
             mDeleteButton = itemView.findViewById(R.id.deleteButton);
 
             mDeleteButton.setOnClickListener(new View.OnClickListener() {
@@ -79,7 +77,6 @@ public class DatabaseItemAdapter extends RecyclerView.Adapter<DatabaseItemAdapte
         DataBaseViewItems currentItem = mDataBaseViewItemsList.get(position);
 
         dbViewHolder.mWorkoutName.setText(currentItem.getWorkoutName());
-        dbViewHolder.mWorkoutTime.setText(currentItem.getmWorkoutId());
     }
 
     @Override
