@@ -1,5 +1,6 @@
 package com.mg.workoutintervalapp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,12 +14,14 @@ public class CustomTimerMenuActivity extends AppCompatActivity {
     private TextView selectTitleTV;
     private Button okBtn, timeBtn, repBtn, repTimeBtn, restBtn;
     private boolean isFirst;
+    private Intent setWorkoutIntent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom_timer_menu);
 
         isFirst = true;
+        setWorkoutIntent = new Intent(this, SetCustomMenuActivity.class);
         setActivityViews();
 
         if(isFirst){
@@ -43,7 +46,27 @@ public class CustomTimerMenuActivity extends AppCompatActivity {
                 restBtn.setVisibility(View.VISIBLE);
             }
         });
-
+        setOnClickButtons(timeBtn);
+        setOnClickButtons(repBtn);
+        setOnClickButtons(repTimeBtn);
+        setOnClickButtons(restBtn);
+    }
+    private void setOnClickButtons(Button button){
+        if(button == timeBtn){
+            setWorkoutIntent.putExtra( "name", "Timed");
+        }else if(button == repBtn){
+            setWorkoutIntent.putExtra( "name", "Repetition");
+        }else if(button == repTimeBtn){
+            setWorkoutIntent.putExtra( "name", "TimedRepetition");
+        }else if(button == restBtn){
+            setWorkoutIntent.putExtra( "name", "Rest");
+        }
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(setWorkoutIntent);
+            }
+        });
     }
     private void setActivityViews(){
         workoutNameET = findViewById(R.id.custom_workoutName_ET);
