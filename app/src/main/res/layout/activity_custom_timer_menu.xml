@@ -13,7 +13,8 @@
         android:hint="Enter Workout Name"
         android:textColorHint="@color/cardview_light_background"
         android:layout_width="match_parent"
-        android:layout_height="60dp" />
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"/>
     <TextView
         android:id="@+id/custom_selectTitleTV"
         android:text="Select First Workout Type"
