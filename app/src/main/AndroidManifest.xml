@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SetCustomMenuActivity"></activity>
+        <activity android:name=".CustomTimerSelectActivity"></activity>
+        <activity android:name=".CustomTimerSetActivity" />
         <activity android:name=".CustomTimerMenuActivity" />
         <activity android:name=".LoadTimerActivity" />
         <activity android:name=".SimpleTimerActivity" />
