@@ -15,6 +15,8 @@ public class CustomTimerMenuActivity extends AppCompatActivity {
     private Button okBtn, timeBtn, repBtn, repTimeBtn, restBtn;
     private boolean isFirst;
     private Intent setWorkoutIntent;
+
+    private String circuitName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +25,7 @@ public class CustomTimerMenuActivity extends AppCompatActivity {
         isFirst = true;
         setWorkoutIntent = new Intent(this, SetCustomMenuActivity.class);
         setActivityViews();
+
 
         if(isFirst){
             selectTitleTV.setVisibility(View.INVISIBLE);
@@ -36,6 +39,7 @@ public class CustomTimerMenuActivity extends AppCompatActivity {
         okBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                circuitName = workoutNameET.toString();
                 workoutNameET.setVisibility(View.GONE);
                 okBtn.setVisibility(View.GONE);
 
@@ -46,28 +50,36 @@ public class CustomTimerMenuActivity extends AppCompatActivity {
                 restBtn.setVisibility(View.VISIBLE);
             }
         });
-        setOnClickButtons(timeBtn);
-        setOnClickButtons(repBtn);
-        setOnClickButtons(repTimeBtn);
-        setOnClickButtons(restBtn);
-    }
-    private void setOnClickButtons(Button button){
-        if(button == timeBtn){
-            setWorkoutIntent.putExtra( "name", "Timed");
-        }else if(button == repBtn){
-            setWorkoutIntent.putExtra( "name", "Repetition");
-        }else if(button == repTimeBtn){
-            setWorkoutIntent.putExtra( "name", "TimedRepetition");
-        }else if(button == restBtn){
-            setWorkoutIntent.putExtra( "name", "Rest");
-        }
-        button.setOnClickListener(new View.OnClickListener() {
+        timeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setWorkoutIntent.putExtra("name", "time");
+                startActivity(setWorkoutIntent);
+            }
+        });
+        repBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setWorkoutIntent.putExtra("name", "rep");
+                startActivity(setWorkoutIntent);
+            }
+        });
+        repTimeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setWorkoutIntent.putExtra("name", "repTime");
+                startActivity(setWorkoutIntent);
+            }
+        });
+        restBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setWorkoutIntent.putExtra("name", "rest");
                 startActivity(setWorkoutIntent);
             }
         });
     }
+
     private void setActivityViews(){
         workoutNameET = findViewById(R.id.custom_workoutName_ET);
         selectTitleTV = findViewById(R.id.custom_selectTitleTV);
