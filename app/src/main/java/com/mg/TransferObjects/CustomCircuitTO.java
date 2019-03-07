@@ -5,15 +5,15 @@ import java.util.List;
 public class CustomCircuitTO {
 
     private String name;
-    private List<IntervalTo> intervalToLisr;
+    private List<IntervalTo> intervalToList;
 
 
-    public void setintervalToLisr(List<IntervalTo> intervalToLisr) {
-        this.intervalToLisr = intervalToLisr;
+    public void setintervalToList(List<IntervalTo> intervalToList) {
+        this.intervalToList = intervalToList;
     }
 
-    public List<IntervalTo> getintervalToLisr() {
-        return intervalToLisr;
+    public List<IntervalTo> getintervalToList() {
+        return intervalToList;
     }
 
     public String getName() {
