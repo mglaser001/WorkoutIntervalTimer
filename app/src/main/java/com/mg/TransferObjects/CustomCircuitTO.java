@@ -1,8 +1,9 @@
 package com.mg.TransferObjects;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class CustomCircuitTO {
+public class CustomCircuitTO implements Serializable {
 
     private String name;
     private List<IntervalTo> intervalToList;

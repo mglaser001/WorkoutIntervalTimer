@@ -8,6 +8,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.mg.TransferObjects.CustomCircuitTO;
+import com.mg.TransferObjects.IntervalTo;
+
 public class CustomTimerMenuActivity extends AppCompatActivity {
 
     private EditText workoutNameET;
@@ -15,6 +18,8 @@ public class CustomTimerMenuActivity extends AppCompatActivity {
     private Button okBtn, timeBtn, repBtn, repTimeBtn, restBtn;
     private boolean isFirst;
     private Intent setWorkoutIntent;
+    private IntervalTo intervalTo;
+    private CustomCircuitTO customCircuitTO;
 
     private String circuitName;
 
@@ -34,12 +39,14 @@ public class CustomTimerMenuActivity extends AppCompatActivity {
         repTimeBtn.setVisibility(View.INVISIBLE);
         restBtn.setVisibility(View.INVISIBLE);
 
-
+        customCircuitTO = new CustomCircuitTO();
 
         okBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 circuitName = workoutNameET.toString();
+                customCircuitTO.setName(circuitName);
+
                 workoutNameET.setVisibility(View.GONE);
                 okBtn.setVisibility(View.GONE);
 
@@ -54,6 +61,7 @@ public class CustomTimerMenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setWorkoutIntent.putExtra("name", "time");
+                setWorkoutIntent.putExtra("circuitName", customCircuitTO.getName());
                 startActivity(setWorkoutIntent);
             }
         });
