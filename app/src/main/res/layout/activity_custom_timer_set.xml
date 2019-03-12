@@ -10,7 +10,7 @@
     <TextView
         android:id="@+id/CustomWorkoutTypeTitleTV"
         android:text="WorkoutType"
-        android:textSize="40sp"
+        android:textSize="25sp"
         android:textColor="@color/cardview_light_background"
         android:textAlignment="center"
         android:layout_width="match_parent"
@@ -28,6 +28,7 @@
         android:layout_below="@id/CustomWorkoutTypeTitleTV" />
     <EditText
         android:id="@+id/CustomWorkoutTypeMinutesET"
+        android:inputType="number"
         android:text="00"
         android:textSize="30sp"
         android:textColor="@color/cardview_light_background"
@@ -49,6 +50,7 @@
         android:layout_below="@id/CustomWorkoutTypeNameET" />
     <EditText
         android:id="@+id/CustomWorkoutTypeSecondsET"
+        android:inputType="number"
         android:text="00"
         android:textSize="30sp"
         android:textColor="@color/cardview_light_background"
@@ -57,7 +59,29 @@
         android:padding="10dp"
         android:layout_toRightOf="@id/CustomWorkoutColonTV"
         android:layout_below="@id/CustomWorkoutTypeNameET" />
-
+    <TextView
+        android:id="@+id/CustomWorkoutRepTV"
+        android:text="Enter Repetitions:"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:textColor="@color/cardview_light_background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_centerInParent="true"
+        android:layout_below="@id/CustomWorkoutColonTV" />
+    <EditText
+        android:id="@+id/CustomWorkoutRepET"
+        android:inputType="number"
+        android:text="5"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:textColor="@color/cardview_light_background"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_centerInParent="true"
+        android:layout_below="@id/CustomWorkoutRepTV" />
     <Button
         android:id="@+id/CustomWorkoutEnterBtn"
         android:text="Enter"
@@ -68,6 +92,6 @@
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:layout_centerInParent="true"
-        android:layout_below="@id/CustomWorkoutColonTV" />
+        android:layout_below="@id/CustomWorkoutRepET" />
 
 </RelativeLayout>

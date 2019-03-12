@@ -60,7 +60,7 @@ public class CustomTimerMenuActivity extends AppCompatActivity {
         timeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setWorkoutIntent.putExtra("name", "time");
+                setWorkoutIntent.putExtra("name", "timed");
                 setWorkoutIntent.putExtra("circuitName", customCircuitTO.getName());
                 startActivity(setWorkoutIntent);
             }
@@ -69,6 +69,7 @@ public class CustomTimerMenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setWorkoutIntent.putExtra("name", "rep");
+                setWorkoutIntent.putExtra("circuitName", customCircuitTO.getName());
                 startActivity(setWorkoutIntent);
             }
         });
@@ -76,6 +77,7 @@ public class CustomTimerMenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setWorkoutIntent.putExtra("name", "repTime");
+                setWorkoutIntent.putExtra("circuitName", customCircuitTO.getName());
                 startActivity(setWorkoutIntent);
             }
         });
@@ -83,6 +85,7 @@ public class CustomTimerMenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setWorkoutIntent.putExtra("name", "rest");
+                setWorkoutIntent.putExtra("circuitName", customCircuitTO.getName());
                 startActivity(setWorkoutIntent);
             }
         });

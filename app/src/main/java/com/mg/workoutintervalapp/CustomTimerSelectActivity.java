@@ -28,6 +28,7 @@ public class CustomTimerSelectActivity extends AppCompatActivity {
         timeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setWorkoutIntent.putExtra("customCircuitTO", getIntent().getSerializableExtra("customCircuitTO"));
                 setWorkoutIntent.putExtra("name", "time");
                 startActivity(setWorkoutIntent);
             }
@@ -35,6 +36,7 @@ public class CustomTimerSelectActivity extends AppCompatActivity {
         repBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setWorkoutIntent.putExtra("customCircuitTO", getIntent().getSerializableExtra("customCircuitTO"));
                 setWorkoutIntent.putExtra("name", "rep");
                 startActivity(setWorkoutIntent);
             }
@@ -42,6 +44,7 @@ public class CustomTimerSelectActivity extends AppCompatActivity {
         repTimeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setWorkoutIntent.putExtra("customCircuitTO", getIntent().getSerializableExtra("customCircuitTO"));
                 setWorkoutIntent.putExtra("name", "repTime");
                 startActivity(setWorkoutIntent);
             }
@@ -49,6 +52,7 @@ public class CustomTimerSelectActivity extends AppCompatActivity {
         restBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setWorkoutIntent.putExtra("customCircuitTO", getIntent().getSerializableExtra("customCircuitTO"));
                 setWorkoutIntent.putExtra("name", "rest");
                 startActivity(setWorkoutIntent);
             }

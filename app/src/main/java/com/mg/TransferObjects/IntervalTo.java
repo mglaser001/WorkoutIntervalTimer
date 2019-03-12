@@ -1,9 +1,12 @@
 package com.mg.TransferObjects;
 
-public class IntervalTo {
+import java.io.Serializable;
+
+public class IntervalTo implements Serializable {
     private String intervalName;
     private String intervalTime;
     private String intervalType;
+    private String intervalReps;
 
     public String getIntervalName() {
         return intervalName;
@@ -29,4 +32,11 @@ public class IntervalTo {
         this.intervalType = intervalType;
     }
 
+    public String getIntervalReps() {
+        return intervalReps;
+    }
+
+    public void setIntervalReps(String intervalReps) {
+        this.intervalReps = intervalReps;
+    }
 }

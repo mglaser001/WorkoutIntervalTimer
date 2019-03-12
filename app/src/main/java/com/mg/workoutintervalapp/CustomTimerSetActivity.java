@@ -15,11 +15,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomTimerSetActivity extends AppCompatActivity {
-    private TextView workoutTitle;
+    private TextView workoutTitle, customWorkoutRepTV, customWorkoutColonTV;
     private String workoutType;
-    private EditText minutesET, secondsET, nameET;
+    private EditText minutesET, secondsET, nameET, customWorkoutRepET;
     private Button okBtn;
-    private Intent customTimerSelect;
+    private Intent customTimerSelectIntent;
 
     private IntervalTo intervalTo;
     private List<IntervalTo> intervalToList = new ArrayList<>();
@@ -30,7 +30,7 @@ public class CustomTimerSetActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom_timer_set);
 
-        customTimerSelect = new Intent(this, CustomTimerSelectActivity.class);
+        customTimerSelectIntent = new Intent(this, CustomTimerSelectActivity.class);
         initializeActivity();
 
         intervalTo = new IntervalTo();
@@ -41,17 +41,27 @@ public class CustomTimerSetActivity extends AppCompatActivity {
             workoutType =  getIntent().getExtras().getString("name");
         }else if(getIntent().hasExtra("circuitName")){
             customCircuitTO.setName(getIntent().getExtras().getString("circuitName"));
+        }else if(getIntent().hasExtra("customCircuitTO")){
+            customCircuitTO = (CustomCircuitTO) getIntent().getSerializableExtra("customCircuitTO");
         }
 
         try{
-            if(workoutType == "timed"){
-                workoutTitle.setText("TIMED");
-            }else if(workoutType == "rep"){
-                workoutTitle.setText("REPETITION");
-            }else if(workoutType == "repTime"){
-                workoutTitle.setText("TIMED REPETITION");
-            }else if(workoutType == "rest"){
+            if(workoutType.equalsIgnoreCase("timed")){
+                workoutTitle.setText("TIMED INTERVAL");
+                customWorkoutRepTV.setVisibility(View.GONE);
+                customWorkoutRepET.setVisibility(View.GONE);
+            }else if(workoutType.equalsIgnoreCase("rep")){
+                workoutTitle.setText("UNTIMED REPETITION INTERVAL");
+                secondsET.setVisibility(View.GONE);
+                minutesET.setVisibility(View.GONE);
+                customWorkoutColonTV.setVisibility(View.GONE);
+            }else if(workoutType.equalsIgnoreCase("repTime")){
+                workoutTitle.setText("TIMED REPETITION INTERVAL");
+            }else if(workoutType.equalsIgnoreCase("rest")){
                 workoutTitle.setText("REST");
+                nameET.setVisibility(View.GONE);
+                customWorkoutRepTV.setVisibility(View.GONE);
+                customWorkoutRepET.setVisibility(View.GONE);
             }
         }catch (Exception e){
             System.out.println("No Workout Type");
@@ -60,15 +70,25 @@ public class CustomTimerSetActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 intervalTo.setIntervalType(workoutTitle.getText().toString());
-                intervalTo.setIntervalName(nameET.getText().toString());
-                intervalTo.setIntervalName(minutesET.getText().toString() + ":"+ secondsET.getText().toString());
+
+                if(workoutTitle.getText().toString().equalsIgnoreCase("REST")){
+                    intervalTo.setIntervalName("REST");
+                }else{
+                    intervalTo.setIntervalName(nameET.getText().toString());
+                }
+                intervalTo.setIntervalTime(minutesET.getText().toString() + ":"+ secondsET.getText().toString());
+                intervalToList.add(intervalTo);
                 customCircuitTO.setintervalToList(intervalToList);
-                startActivity(customTimerSelect);
+                customTimerSelectIntent.putExtra("circuitTO", customCircuitTO);
+                startActivity(customTimerSelectIntent);
             }
         });
 
     }
     private void initializeActivity(){
+        customWorkoutColonTV = findViewById(R.id.CustomWorkoutColonTV);
+        customWorkoutRepET = findViewById(R.id.CustomWorkoutRepET);
+        customWorkoutRepTV = findViewById(R.id.CustomWorkoutRepTV);
         workoutTitle = findViewById(R.id.CustomWorkoutTypeTitleTV);
         nameET = findViewById(R.id.CustomWorkoutTypeNameET);
         secondsET = findViewById(R.id.CustomWorkoutTypeMinutesET);
