@@ -77,6 +77,7 @@ public class CustomTimerSetActivity extends AppCompatActivity {
                     intervalTo.setIntervalName(nameET.getText().toString());
                 }
                 intervalTo.setIntervalTime(minutesET.getText().toString() + ":"+ secondsET.getText().toString());
+                intervalTo.setIntervalReps(customWorkoutRepET.getText().toString());
                 intervalToList.add(intervalTo);
                 customCircuitTO.setintervalToList(intervalToList);
                 customTimerSelectIntent.putExtra("circuitTO", customCircuitTO);

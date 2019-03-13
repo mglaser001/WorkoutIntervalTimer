@@ -29,7 +29,7 @@ public class CustomTimerSelectActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setWorkoutIntent.putExtra("customCircuitTO", getIntent().getSerializableExtra("customCircuitTO"));
-                setWorkoutIntent.putExtra("name", "time");
+                setWorkoutIntent.putExtra("name", "timed");
                 startActivity(setWorkoutIntent);
             }
         });
