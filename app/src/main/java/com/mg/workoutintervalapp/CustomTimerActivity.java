@@ -11,13 +11,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.mg.TransferObjects.CustomCircuitTO;
+
 public class CustomTimerActivity extends AppCompatActivity {
     private MediaPlayer bell;
-    private TextView countdownText;
-    private TextView intervalText;
+    private TextView countdownText, intervalText, titleText;
 
     private Button backToMenuButton;
-    private Button resetWorkoutButton;
+//    private Button resetWorkoutButton;
     private CountDownTimer countDownTimer;
     private CountDownTimer countDownTimer2;
     private long timeLeftInMilliseconds;
@@ -28,6 +29,7 @@ public class CustomTimerActivity extends AppCompatActivity {
     private int intervalsLeftforReset;
     ConstraintLayout timerLayout;
     private boolean stopTime = false;
+    private CustomCircuitTO customCircuitTO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,14 +40,19 @@ public class CustomTimerActivity extends AppCompatActivity {
 
 
         bell = MediaPlayer.create(this,R.raw.boxingbell);
-        intervalText = findViewById(R.id.interval_Text);
-        countdownText = findViewById(R.id.countdown_Text);
+        titleText = findViewById(R.id.CustomCircuitNameTV);
+        intervalText = findViewById(R.id.CustomCircuitIntervalNameTV);
+        countdownText = findViewById(R.id.CustomCircuitTimerTV);
 
-        backToMenuButton = findViewById(R.id.backSimpleMenu_Btn);
-        resetWorkoutButton = findViewById(R.id.simpleTimerReset_Btn);
+        backToMenuButton = findViewById(R.id.CustomCircuitDoneBTN);
+//        resetWorkoutButton = findViewById(R.id.simpleTimerReset_Btn);
 
         if(getIntent().hasExtra("timeToDecrement")){
             timeToDecrement = getIntent().getExtras().getLong("timeToDecrement");
+
+        }
+        if(getIntent().hasExtra("customCircuitTO")){
+            customCircuitTO = (CustomCircuitTO) getIntent().getSerializableExtra("customCircuitTO");
 
         }
         if(getIntent().hasExtra("intervalsLeft")){
@@ -65,14 +72,14 @@ public class CustomTimerActivity extends AppCompatActivity {
                 finish();
             }
         });
-        resetWorkoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intervalsLeft = intervalsLeftforReset;
-                resetTimers();
-                startInterval();
-            }
-        });
+//        resetWorkoutButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                intervalsLeft = intervalsLeftforReset;
+//                resetTimers();
+//                startInterval();
+//            }
+//        });
     }
     private void startInterval() {
         updateTimerText("Get Ready");

@@ -35,15 +35,18 @@ public class CustomTimerSetActivity extends AppCompatActivity {
 
         intervalTo = new IntervalTo();
 
-        customCircuitTO = new CustomCircuitTO();
-
         if(getIntent().hasExtra("name")){
             workoutType =  getIntent().getExtras().getString("name");
-        }else if(getIntent().hasExtra("circuitName")){
-            customCircuitTO.setName(getIntent().getExtras().getString("circuitName"));
-        }else if(getIntent().hasExtra("customCircuitTO")){
-            customCircuitTO = (CustomCircuitTO) getIntent().getSerializableExtra("customCircuitTO");
         }
+        if(getIntent().hasExtra("customCircuitTO")){
+            customCircuitTO = (CustomCircuitTO) getIntent().getSerializableExtra("customCircuitTO");
+            intervalToList = customCircuitTO.getintervalToList();
+        }
+        else if(getIntent().hasExtra("circuitName")){
+            customCircuitTO = new CustomCircuitTO();
+            customCircuitTO.setName(getIntent().getExtras().getString("circuitName"));
+        }
+
 
         try{
             if(workoutType.equalsIgnoreCase("timed")){
@@ -80,7 +83,7 @@ public class CustomTimerSetActivity extends AppCompatActivity {
                 intervalTo.setIntervalReps(customWorkoutRepET.getText().toString());
                 intervalToList.add(intervalTo);
                 customCircuitTO.setintervalToList(intervalToList);
-                customTimerSelectIntent.putExtra("circuitTO", customCircuitTO);
+                customTimerSelectIntent.putExtra("customCircuitTO", customCircuitTO);
                 startActivity(customTimerSelectIntent);
             }
         });

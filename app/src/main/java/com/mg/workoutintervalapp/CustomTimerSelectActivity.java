@@ -12,7 +12,7 @@ import com.mg.TransferObjects.IntervalTo;
 public class CustomTimerSelectActivity extends AppCompatActivity {
 
     private Button saveBtn, timeBtn, repBtn, repTimeBtn, restBtn;
-    private Intent setWorkoutIntent;
+    private Intent setWorkoutIntent, setTimerIntent;
     private IntervalTo intervalTo;
     private CustomCircuitTO customCircuitTO;
 
@@ -22,6 +22,7 @@ public class CustomTimerSelectActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom_timer_select);
 
+        setTimerIntent = new Intent(this, CustomTimerActivity.class);
         setWorkoutIntent = new Intent(this, CustomTimerSetActivity.class);
         setActivityViews();
 
@@ -60,7 +61,7 @@ public class CustomTimerSelectActivity extends AppCompatActivity {
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //save data to database
+                setTimerIntent.putExtra("customCircuitTO", getIntent().getSerializableExtra("customCircuitTO"));
             }
         });
     }
