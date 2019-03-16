@@ -44,7 +44,7 @@ public class CustomTimerMenuActivity extends AppCompatActivity {
         okBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                circuitName = workoutNameET.toString();
+                circuitName = workoutNameET.getText().toString();
                 customCircuitTO.setName(circuitName);
 
                 workoutNameET.setVisibility(View.GONE);

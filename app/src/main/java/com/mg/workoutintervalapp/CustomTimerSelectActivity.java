@@ -62,6 +62,7 @@ public class CustomTimerSelectActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setTimerIntent.putExtra("customCircuitTO", getIntent().getSerializableExtra("customCircuitTO"));
+                startActivity(setTimerIntent);
             }
         });
     }

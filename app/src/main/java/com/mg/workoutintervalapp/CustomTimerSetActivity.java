@@ -73,14 +73,27 @@ public class CustomTimerSetActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 intervalTo.setIntervalType(workoutTitle.getText().toString());
-
+                //Set Interval Names
                 if(workoutTitle.getText().toString().equalsIgnoreCase("REST")){
                     intervalTo.setIntervalName("REST");
                 }else{
                     intervalTo.setIntervalName(nameET.getText().toString());
                 }
-                intervalTo.setIntervalTime(minutesET.getText().toString() + ":"+ secondsET.getText().toString());
-                intervalTo.setIntervalReps(customWorkoutRepET.getText().toString());
+
+                //Set Interval Time or Tag for no time
+                if(workoutTitle.getText().toString().equalsIgnoreCase("UNTIMED REPETITION INTERVAL")){
+                    intervalTo.setIntervalTime("#NOTIME");
+                }else{
+                    intervalTo.setIntervalTime(minutesET.getText().toString() + ":"+ secondsET.getText().toString());
+                }
+
+                //Set Interval Reps or Tag for no reps
+                if(workoutTitle.getText().toString().contains("REPETITION")){
+                    intervalTo.setIntervalReps(customWorkoutRepET.getText().toString());
+                }else{
+                    intervalTo.setIntervalReps("#NOREPS");
+                }
+                intervalTo.setIntervalType(workoutType);
                 intervalToList.add(intervalTo);
                 customCircuitTO.setintervalToList(intervalToList);
                 customTimerSelectIntent.putExtra("customCircuitTO", customCircuitTO);
@@ -95,8 +108,8 @@ public class CustomTimerSetActivity extends AppCompatActivity {
         customWorkoutRepTV = findViewById(R.id.CustomWorkoutRepTV);
         workoutTitle = findViewById(R.id.CustomWorkoutTypeTitleTV);
         nameET = findViewById(R.id.CustomWorkoutTypeNameET);
-        secondsET = findViewById(R.id.CustomWorkoutTypeMinutesET);
-        minutesET = findViewById(R.id.CustomWorkoutTypeSecondsET);
+        minutesET = findViewById(R.id.CustomWorkoutTypeMinutesET);
+        secondsET = findViewById(R.id.CustomWorkoutTypeSecondsET);
         okBtn = findViewById(R.id.CustomWorkoutEnterBtn);
     }
 }

@@ -9,13 +9,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mg.TransferObjects.CustomCircuitTO;
+import com.mg.TransferObjects.IntervalTo;
 
 public class CustomTimerActivity extends AppCompatActivity {
     private MediaPlayer bell;
-    private TextView countdownText, intervalText, titleText;
+    private TextView countdownText, intervalNameText, titleText;
 
     private Button backToMenuButton;
 //    private Button resetWorkoutButton;
@@ -27,7 +29,7 @@ public class CustomTimerActivity extends AppCompatActivity {
     private long timeToDecrement;
     private int intervalsLeft;
     private int intervalsLeftforReset;
-    ConstraintLayout timerLayout;
+    RelativeLayout timerLayout;
     private boolean stopTime = false;
     private CustomCircuitTO customCircuitTO;
 
@@ -36,12 +38,12 @@ public class CustomTimerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom_timer);
 
-        timerLayout = findViewById(R.id.simpleTimerLayout);
+        timerLayout = findViewById(R.id.customTimerLayout);
 
 
         bell = MediaPlayer.create(this,R.raw.boxingbell);
         titleText = findViewById(R.id.CustomCircuitNameTV);
-        intervalText = findViewById(R.id.CustomCircuitIntervalNameTV);
+        intervalNameText = findViewById(R.id.CustomCircuitIntervalNameTV);
         countdownText = findViewById(R.id.CustomCircuitTimerTV);
 
         backToMenuButton = findViewById(R.id.CustomCircuitDoneBTN);
@@ -49,11 +51,9 @@ public class CustomTimerActivity extends AppCompatActivity {
 
         if(getIntent().hasExtra("timeToDecrement")){
             timeToDecrement = getIntent().getExtras().getLong("timeToDecrement");
-
         }
         if(getIntent().hasExtra("customCircuitTO")){
             customCircuitTO = (CustomCircuitTO) getIntent().getSerializableExtra("customCircuitTO");
-
         }
         if(getIntent().hasExtra("intervalsLeft")){
             intervalsLeft = getIntent().getExtras().getInt("intervalsLeft");
@@ -61,8 +61,13 @@ public class CustomTimerActivity extends AppCompatActivity {
         if(getIntent().hasExtra("restTimeToDecrement")){
             timeToDecrement_Rest = getIntent().getExtras().getLong("restTimeToDecrement");
         }
+        //Custom Timer Stuff
+        titleText.setText(customCircuitTO.getName());
+
         intervalsLeftforReset = intervalsLeft;
+
         startInterval();
+
 
         backToMenuButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,7 +88,7 @@ public class CustomTimerActivity extends AppCompatActivity {
     }
     private void startInterval() {
         updateTimerText("Get Ready");
-        updateInterval(Integer.toString(intervalsLeft));
+        updateIntervalTitle("");
         stopTime = false;
         timerLayout.setBackgroundColor(Color.parseColor("#7D8E32"));
 
@@ -95,60 +100,56 @@ public class CustomTimerActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                if (intervalsLeft > 0) {
-                    bell.start();
-                    startTimer(intervalsLeft);
+//                bell.start();
+                for(IntervalTo intervalTo : customCircuitTO.getintervalToList()) {
+                    updateIntervalTitle(intervalTo.getIntervalName());
+                    if(intervalTo.getIntervalTime().equalsIgnoreCase("#NOTIME")){
+
+                    }else{
+                        startTimer(intervalTo);
+                    }
                 }
             }
         }.start();
     }
 
-    public void startTimer(int intervals) {
-        timeLeftInMilliseconds = timeToDecrement;
-        updateInterval(Integer.toString(intervals));
-        timerLayout.setBackgroundColor(Color.parseColor("#11340B"));
+    public void startTimer(IntervalTo intervalTo) {
+        timeLeftInMilliseconds = convertToMilliseconds(intervalTo.getIntervalTime());
+//        timerLayout.setBackgroundColor(Color.parseColor("#11340B"));
 
         countDownTimer = new CountDownTimer(timeLeftInMilliseconds + 200, 1000) {
             @Override
             public void onTick(long l) {
-                if(!stopTime){
-                    updateTimer(l);
-                }
+                updateTimer(l);
             }
 
             @Override
             public void onFinish() {
-
                 countdownText.setText("0:00");
-                intervalsLeft--;
-                if(intervalsLeft > 0) {
-                    startRest();
-                }
-            }
-        }.start();
-
-    }
-    private void startRest() {
-        updateRestTitle();
-        timeLeftInMilliseconds = timeToDecrement_Rest;
-        timerLayout.setBackgroundColor(Color.parseColor("#791111"));
-
-        countDownTimer2 = new CountDownTimer(timeLeftInMilliseconds + 200, 1000) {
-            @Override
-            public void onTick(long l) {
-                if(!stopTime){
-                    updateTimer(l);
-                }
-            }
-
-            @Override
-            public void onFinish() {
-                if (intervalsLeft > 0) {
-                    startTimer(intervalsLeft);
-                }
             }
         }.start();
     }
+//    private void startRest() {
+//        updateRestTitle();
+//        timeLeftInMilliseconds = timeToDecrement_Rest;
+//        timerLayout.setBackgroundColor(Color.parseColor("#791111"));
+//
+//        countDownTimer2 = new CountDownTimer(timeLeftInMilliseconds + 200, 1000) {
+//            @Override
+//            public void onTick(long l) {
+//                if(!stopTime){
+//                    updateTimer(l);
+//                }
+//            }
+//
+//            @Override
+//            public void onFinish() {
+//                if (intervalsLeft > 0) {
+//                    startTimer(intervalsLeft);
+//                }
+//            }
+//        }.start();
+//    }
 
     public void updateTimer(long milliseconds) {
         int minutes = (int) milliseconds / 60000;
@@ -163,6 +164,16 @@ public class CustomTimerActivity extends AppCompatActivity {
 
         countdownText.setText(timeLeftText);
     }
+    private long convertToMilliseconds(String timeString){
+        String minuteString = timeString.split(":")[0];
+        String secondString = timeString.split(":")[1];
+
+        Integer minutes = Integer.parseInt(minuteString);
+        Integer seconds = Integer.parseInt(secondString);
+
+        long milliseconds = (minutes*60000) + (seconds*1000);
+        return milliseconds;
+    }
     private void resetTimers(){
         if(countDownTimer2 != null){
             countDownTimer2.cancel();
@@ -174,10 +185,8 @@ public class CustomTimerActivity extends AppCompatActivity {
     public void updateTimerText(String text) {
         countdownText.setText(text);
     }
-    private void updateRestTitle() {
-        intervalText.setText("Rest");
-    }
-    private void updateInterval(String intervals) {
-        intervalText.setText("Round " + intervals);
+
+    private void updateIntervalTitle(String intervalName) {
+        intervalNameText.setText(intervalName);
     }
 }
