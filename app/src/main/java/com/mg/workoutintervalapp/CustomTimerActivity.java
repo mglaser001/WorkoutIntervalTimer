@@ -28,7 +28,7 @@ public class CustomTimerActivity extends AppCompatActivity {
     private int intervalsLeftforReset;
     ConstraintLayout timerLayout;
     private boolean stopTime = false;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
