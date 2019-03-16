@@ -17,7 +17,7 @@ import com.mg.TransferObjects.IntervalTo;
 
 public class CustomTimerActivity extends AppCompatActivity {
     private MediaPlayer bell;
-    private TextView countdownText, intervalNameText, titleText;
+    private TextView countdownText, intervalNameText, titleText, repText;
     private Button backToMenuButton, nextWorkoutButton;
     private CountDownTimer countDownTimer, countDownTimer2;
     private long timeLeftInMilliseconds;
@@ -41,10 +41,11 @@ public class CustomTimerActivity extends AppCompatActivity {
         titleText = findViewById(R.id.CustomCircuitNameTV);
         intervalNameText = findViewById(R.id.CustomCircuitIntervalNameTV);
         countdownText = findViewById(R.id.CustomCircuitTimerTV);
-
+        repText = findViewById(R.id.CustomCircuitTimedRepTV);
         backToMenuButton = findViewById(R.id.CustomCircuitDoneBTN);
         nextWorkoutButton = findViewById(R.id.CustomCircuitNextBTN);
         nextWorkoutButton.setVisibility(View.GONE);
+        repText.setVisibility(View.GONE);
 
         if(getIntent().hasExtra("timeToDecrement")){
             timeToDecrement = getIntent().getExtras().getLong("timeToDecrement");
@@ -74,14 +75,7 @@ public class CustomTimerActivity extends AppCompatActivity {
                 finish();
             }
         });
-//        resetWorkoutButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                intervalsLeft = intervalsLeftforReset;
-//                resetTimers();
-//                startInterval();
-//            }
-//        });
+
     }
     private void startInterval() {
         updateTimerText("Get Ready");
@@ -108,19 +102,30 @@ public class CustomTimerActivity extends AppCompatActivity {
         timerLayout.setBackgroundColor(Color.parseColor("#11340B"));
         this.pos = position;
         updateIntervalTitle(intervalTo.getIntervalName());
-
+        repText.setVisibility(View.GONE);
+        //No Timer Running
         if(intervalTo.getIntervalTime().equalsIgnoreCase("#NOTIME")){
-            updateTimerText(" Do " + intervalTo.getIntervalReps() + " Reps");
+            updateTimerText(intervalTo.getIntervalReps() + " REPS");
             nextWorkoutButton.setVisibility(View.VISIBLE);
             nextWorkoutButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     pos++;
-                    startTimer(customCircuitTO.getintervalToList().get(pos), pos);
+                    if(pos < customCircuitTO.getintervalToList().size()){
+                        startTimer(customCircuitTO.getintervalToList().get(pos), pos);
+                    }else{
+                        updateTimerText("DONE!");
+                    }
                 }
             });
 
-        }else{
+        }
+        //Timer Running
+        else{
+            if(!intervalTo.getIntervalReps().contains("#NOREPS")){
+                repText.setVisibility(View.VISIBLE);
+                repText.setText(intervalTo.getIntervalReps() + " REPS IN TIME");
+            }
             nextWorkoutButton.setVisibility(View.GONE);
             timeLeftInMilliseconds = convertToMilliseconds(intervalTo.getIntervalTime());
 

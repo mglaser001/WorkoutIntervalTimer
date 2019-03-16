@@ -35,20 +35,30 @@
         android:textColor="@color/cardview_light_background"
         android:layout_marginTop="10dp"
         android:layout_below="@id/CustomCircuitIntervalNameTV"/>
+    <TextView
+        android:id="@+id/CustomCircuitTimedRepTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="Complete # in Time"
+        android:textSize="20sp"
+        android:textColor="@color/cardview_light_background"
+        android:layout_margin="10dp"
+        android:layout_below="@id/CustomCircuitTimerTV"/>
     <Button
         android:id="@+id/CustomCircuitNextBTN"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Next Workout"
         android:textSize="20sp"
-        android:layout_marginTop="50dp"
-        android:layout_below="@id/CustomCircuitTimerTV"/>
+        android:layout_margin="30dp"
+        android:layout_above="@id/CustomCircuitDoneBTN"/>
     <Button
         android:id="@+id/CustomCircuitDoneBTN"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Done"
         android:textSize="20sp"
-        android:layout_marginTop="10dp"
-        android:layout_below="@id/CustomCircuitNextBTN"/>
+        android:layout_margin="30dp"
+        android:layout_alignParentBottom="true"/>
 </RelativeLayout>
