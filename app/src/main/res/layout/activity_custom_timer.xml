@@ -36,11 +36,19 @@
         android:layout_marginTop="10dp"
         android:layout_below="@id/CustomCircuitIntervalNameTV"/>
     <Button
+        android:id="@+id/CustomCircuitNextBTN"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Next Workout"
+        android:textSize="20sp"
+        android:layout_marginTop="50dp"
+        android:layout_below="@id/CustomCircuitTimerTV"/>
+    <Button
         android:id="@+id/CustomCircuitDoneBTN"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Done"
         android:textSize="20sp"
-        android:layout_marginTop="50dp"
-        android:layout_below="@id/CustomCircuitTimerTV"/>
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/CustomCircuitNextBTN"/>
 </RelativeLayout>
