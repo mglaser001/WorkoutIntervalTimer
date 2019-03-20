@@ -16,9 +16,7 @@ public class CustomTimerMenuActivity extends AppCompatActivity {
     private EditText workoutNameET;
     private TextView selectTitleTV;
     private Button okBtn, timeBtn, repBtn, repTimeBtn, restBtn;
-    private boolean isFirst;
     private Intent setWorkoutIntent;
-    private IntervalTo intervalTo;
     private CustomCircuitTO customCircuitTO;
 
     private String circuitName;
@@ -28,7 +26,6 @@ public class CustomTimerMenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom_timer_menu);
 
-        isFirst = true;
         setWorkoutIntent = new Intent(this, CustomTimerSetActivity.class);
         setActivityViews();
 

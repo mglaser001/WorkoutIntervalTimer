@@ -44,7 +44,7 @@ public class CustomTimerSetActivity extends AppCompatActivity {
         }
         else if(getIntent().hasExtra("circuitName")){
             customCircuitTO = new CustomCircuitTO();
-            customCircuitTO.setName(getIntent().getExtras().getString("circuitName"));
+            customCircuitTO.setName(getIntent ().getExtras().getString("circuitName"));
         }
 
 
