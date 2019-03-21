@@ -84,7 +84,8 @@ public class DatabaseHelperCustomTimer extends SQLiteOpenHelper{
         Log.d(TAG,"addData: Adding " + customCircuitTO.getName() + " to " + CIRCUIT_TABLE_NAME);
 
         long result = db.insert(CIRCUIT_TABLE_NAME,null, contentValues);
-        Cursor data = db.rawQuery("SELECT COLUMN_CIRCUIT_ID FROM " + CIRCUIT_TABLE_NAME + " IF COLUMN_CIRCUIT_NAME EQUALS " + customCircuitTO.getName(),null);
+        SQLiteDatabase dbSelect = this.getWritableDatabase();
+        Cursor data = dbSelect.rawQuery("SELECT COLUMN_CIRCUIT_ID FROM " + CIRCUIT_TABLE_NAME + " IF COLUMN_CIRCUIT_NAME = " + customCircuitTO.getName(),null);
         int circuitId = data.getInt(0);
 
         for(IntervalTo intervalTo: intervalList){
@@ -95,6 +96,7 @@ public class DatabaseHelperCustomTimer extends SQLiteOpenHelper{
             contentValuesWorkout.put(COLUMN_WORKOUT_TYPE, intervalTo.getIntervalType());
             contentValuesWorkout.put(COLUMN_WORKOUT_CIRCUIT_ID, circuitId);
             if(result != -1){
+                Log.d(TAG,"addData: Adding " + intervalTo.getIntervalName() + " to " + WORKOUT_TABLE_NAME);
                 result = db.insert(WORKOUT_TABLE_NAME,null, contentValuesWorkout);
             }
         }
