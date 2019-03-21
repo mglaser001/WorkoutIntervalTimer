@@ -67,9 +67,9 @@ public class CustomTimerSelectActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setTimerIntent.putExtra("customCircuitTO", getIntent().getSerializableExtra("customCircuitTO"));
-                boolean insertData = mDatabaseHelper.addData((CustomCircuitTO) getIntent().getSerializableExtra("customCircuitTO"));
-
-                if(insertData){
+                boolean insertData = mDatabaseHelper.addDataToCircuitTable((CustomCircuitTO) getIntent().getSerializableExtra("customCircuitTO"));
+                boolean insertData2 = mDatabaseHelper.addDataToWorkoutTable((CustomCircuitTO) getIntent().getSerializableExtra("customCircuitTO"));
+                if(insertData && insertData2){
                     Toast.makeText(CustomTimerSelectActivity.this, "Workout Successfully Saved!", Toast.LENGTH_LONG).show();
                 }else{
                     Toast.makeText(CustomTimerSelectActivity.this, "An Error Occurred!", Toast.LENGTH_LONG).show();

@@ -68,8 +68,7 @@ public class DatabaseHelperCustomTimer extends SQLiteOpenHelper{
         //recreates tables
         onCreate(db);
     }
-    public boolean addData(CustomCircuitTO customCircuitTO) {
-        List<IntervalTo> intervalList = customCircuitTO.getintervalToList();
+    public boolean addDataToCircuitTable(CustomCircuitTO customCircuitTO) {
 
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
         Date date = new Date();
@@ -84,10 +83,24 @@ public class DatabaseHelperCustomTimer extends SQLiteOpenHelper{
         Log.d(TAG,"addData: Adding " + customCircuitTO.getName() + " to " + CIRCUIT_TABLE_NAME);
 
         long result = db.insert(CIRCUIT_TABLE_NAME,null, contentValues);
-        SQLiteDatabase dbSelect = this.getWritableDatabase();
-        Cursor data = dbSelect.rawQuery("SELECT COLUMN_CIRCUIT_ID FROM " + CIRCUIT_TABLE_NAME + " IF COLUMN_CIRCUIT_NAME = " + customCircuitTO.getName(),null);
-        int circuitId = data.getInt(0);
 
+        if(result == -1){
+            return false;
+        }else{
+            return true;
+        }
+
+    }
+    public boolean addDataToWorkoutTable(CustomCircuitTO customCircuitTO){
+        List<IntervalTo> intervalList = customCircuitTO.getintervalToList();
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor data = db.rawQuery("SELECT " + COLUMN_CIRCUIT_ID + " FROM " + CIRCUIT_TABLE_NAME + " WHERE " + COLUMN_CIRCUIT_NAME + " = '" + customCircuitTO.getName() + "'",null);
+        int circuitId = 0;
+        if(data.moveToNext()){
+            circuitId = data.getInt(0);
+        }
+        long result = 0;
         for(IntervalTo intervalTo: intervalList){
             ContentValues contentValuesWorkout = new ContentValues();
             contentValuesWorkout.put(COLUMN_WORKOUT_NAME, intervalTo.getIntervalName());
@@ -100,17 +113,20 @@ public class DatabaseHelperCustomTimer extends SQLiteOpenHelper{
                 result = db.insert(WORKOUT_TABLE_NAME,null, contentValuesWorkout);
             }
         }
-
         if(result == -1){
             return false;
         }else{
             return true;
         }
-
     }
-    public Cursor getDatabaseContent(){
+    public Cursor getDatabaseContentCircuitTable(){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor data = db.rawQuery("SELECT * FROM " + CIRCUIT_TABLE_NAME,null);
+        return data;
+    }
+    public Cursor getDatabaseContentWorkoutTable(int circuitId){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor data = db.rawQuery("SELECT * FROM " + WORKOUT_TABLE_NAME + " WHERE " + COLUMN_WORKOUT_CIRCUIT_ID + " = " + circuitId,null);
         return data;
     }
     public void deleteDatabaseItem(int id, String name){

@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mg.TransferObjects.CustomCircuitTO;
 import com.mg.TransferObjects.IntervalTo;
@@ -72,6 +73,7 @@ public class CustomTimerSetActivity extends AppCompatActivity {
         okBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                boolean continueToNextActivity = true;
                 intervalTo.setIntervalType(workoutTitle.getText().toString());
                 //Set Interval Names
                 if(workoutTitle.getText().toString().equalsIgnoreCase("REST")){
@@ -94,10 +96,22 @@ public class CustomTimerSetActivity extends AppCompatActivity {
                     intervalTo.setIntervalReps("#NOREPS");
                 }
                 intervalTo.setIntervalType(workoutType);
-                intervalToList.add(intervalTo);
-                customCircuitTO.setintervalToList(intervalToList);
-                customTimerSelectIntent.putExtra("customCircuitTO", customCircuitTO);
-                startActivity(customTimerSelectIntent);
+
+                //Check for inputs
+                if(intervalTo.getIntervalReps().equals("")){
+                    Toast.makeText(CustomTimerSetActivity.this, "Enter Rep Amount!", Toast.LENGTH_LONG).show();
+                    continueToNextActivity = false;
+                }else if(intervalTo.getIntervalName().equals("") || intervalTo.getIntervalName().equals("0")){
+                    Toast.makeText(CustomTimerSetActivity.this, "Enter A Workout Name!", Toast.LENGTH_LONG).show();
+                    continueToNextActivity = false;
+                }
+                //Continues to next activity if inputs are filled
+                if(continueToNextActivity){
+                    intervalToList.add(intervalTo);
+                    customCircuitTO.setintervalToList(intervalToList);
+                    customTimerSelectIntent.putExtra("customCircuitTO", customCircuitTO);
+                    startActivity(customTimerSelectIntent);
+                }
             }
         });
 

@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mg.TransferObjects.CustomCircuitTO;
 import com.mg.TransferObjects.IntervalTo;
@@ -41,17 +42,25 @@ public class CustomTimerMenuActivity extends AppCompatActivity {
         okBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                circuitName = workoutNameET.getText().toString();
-                customCircuitTO.setName(circuitName);
+                boolean continueToSelect = true;
+                if(workoutNameET.getText().toString().equals("")){
+                    continueToSelect = false;
+                    Toast.makeText(CustomTimerMenuActivity.this, "Please Enter Circuit Name!", Toast.LENGTH_LONG).show();
+                }
 
-                workoutNameET.setVisibility(View.GONE);
-                okBtn.setVisibility(View.GONE);
+                if(continueToSelect){
+                    circuitName = workoutNameET.getText().toString();
+                    customCircuitTO.setName(circuitName);
 
-                selectTitleTV.setVisibility(View.VISIBLE);
-                timeBtn.setVisibility(View.VISIBLE);
-                repBtn.setVisibility(View.VISIBLE);
-                repTimeBtn.setVisibility(View.VISIBLE);
-                restBtn.setVisibility(View.VISIBLE);
+                    workoutNameET.setVisibility(View.GONE);
+                    okBtn.setVisibility(View.GONE);
+
+                    selectTitleTV.setVisibility(View.VISIBLE);
+                    timeBtn.setVisibility(View.VISIBLE);
+                    repBtn.setVisibility(View.VISIBLE);
+                    repTimeBtn.setVisibility(View.VISIBLE);
+                    restBtn.setVisibility(View.VISIBLE);
+                }
             }
         });
         timeBtn.setOnClickListener(new View.OnClickListener() {
