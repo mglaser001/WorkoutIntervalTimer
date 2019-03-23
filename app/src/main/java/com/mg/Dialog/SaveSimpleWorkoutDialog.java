@@ -9,8 +9,10 @@ import android.support.v7.app.AppCompatDialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.mg.workoutintervalapp.R;
+import com.mg.workoutintervalapp.SimpleTimerMenuActivity;
 
 public class SaveSimpleWorkoutDialog extends AppCompatDialogFragment {
     private EditText editTextWorkoutName;
@@ -34,9 +36,14 @@ public class SaveSimpleWorkoutDialog extends AppCompatDialogFragment {
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+
                         //save data to database
                         String workoutName = editTextWorkoutName.getText().toString();
-                        listener.applyToDatabase(workoutName);
+                        if(workoutName.equals("")){
+                            Toast.makeText(getActivity(), "Please Enter A Name!", Toast.LENGTH_LONG).show();
+                        }else{
+                            listener.applyToDatabase(workoutName);
+                        }
                     }
                 });
 

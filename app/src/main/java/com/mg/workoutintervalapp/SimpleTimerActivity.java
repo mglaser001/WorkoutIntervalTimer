@@ -178,4 +178,7 @@ public class SimpleTimerActivity extends AppCompatActivity {
     private void updateInterval(String intervals) {
         intervalText.setText("Round " + intervals);
     }
+    @Override public void onBackPressed(){
+        finish();
+    }
 }
