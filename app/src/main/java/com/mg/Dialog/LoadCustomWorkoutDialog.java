@@ -12,10 +12,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.mg.TransferObjects.CustomCircuitTO;
-import com.mg.database.DataBaseViewItems;
 import com.mg.workoutintervalapp.CustomTimerActivity;
 import com.mg.workoutintervalapp.R;
-import com.mg.workoutintervalapp.SimpleTimerActivity;
 
 public class LoadCustomWorkoutDialog extends AppCompatDialogFragment {
     private TextView workoutNameTV;
@@ -26,8 +24,9 @@ public class LoadCustomWorkoutDialog extends AppCompatDialogFragment {
     private CustomCircuitTO selectedItem;
     private LoadWorkoutDialogListener listener;
     private Intent TimerIntent;
+
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState){
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -49,44 +48,46 @@ public class LoadCustomWorkoutDialog extends AppCompatDialogFragment {
                 .setPositiveButton("Start", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        putExtrasForTimerIntent(selectedItem , TimerIntent);
+                        putExtrasForTimerIntent(selectedItem, TimerIntent);
                         startActivity(TimerIntent);
                     }
                 });
-
-
 
 
         return builder.create();
     }
 
     @Override
-    public void onAttach(Context context){
+    public void onAttach(Context context) {
         super.onAttach(context);
         try {
-            listener = (LoadWorkoutDialogListener)context;
+            listener = (LoadWorkoutDialogListener) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + "must implement LoadWorkoutDialog");
         }
     }
-    private void putExtrasForTimerIntent(CustomCircuitTO item, Intent intent){
+
+    private void putExtrasForTimerIntent(CustomCircuitTO item, Intent intent) {
         intent.putExtra("customCircuitTO", item);
     }
-    public void addDialogVariables(CustomCircuitTO dataBaseViewItem){
+
+    public void addDialogVariables(CustomCircuitTO dataBaseViewItem) {
         workoutNameTV.setText("Workout Name: " + dataBaseViewItem.getName());
         workoutTimeTV.setVisibility(View.GONE);
         workoutRestTV.setVisibility(View.GONE);
         workoutIntervalsTV.setText("Intervals: " + dataBaseViewItem.getintervalToList().size());
         workoutDateTV.setText("Date Created: " + dataBaseViewItem.getDate());
     }
-    private void setDialogTextView(View view){
+
+    private void setDialogTextView(View view) {
         workoutNameTV = view.findViewById(R.id.load_dialog_nametv);
         workoutTimeTV = view.findViewById(R.id.load_dialog_workouttimetv);
         workoutRestTV = view.findViewById(R.id.load_dialog_workoutresttv);
         workoutIntervalsTV = view.findViewById(R.id.load_dialog_workoutintervalstv);
         workoutDateTV = view.findViewById(R.id.load_dialog_workoutdatetv);
     }
-    public interface LoadWorkoutDialogListener{
+
+    public interface LoadWorkoutDialogListener {
         CustomCircuitTO dialogListener();
     }
 }

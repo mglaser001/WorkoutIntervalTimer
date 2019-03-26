@@ -8,16 +8,12 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.mg.TransferObjects.CustomCircuitTO;
-import com.mg.TransferObjects.IntervalTo;
-import com.mg.database.DatabaseHelper;
 import com.mg.database.DatabaseHelperCustomTimer;
 
 public class CustomTimerSelectActivity extends AppCompatActivity {
 
-    private Button saveBtn, timeBtn, repBtn, repTimeBtn, restBtn;
+    private Button saveBtn, timeBtn, repBtn, repTimeBtn, restBtn, startBtn;
     private Intent setWorkoutIntent, setTimerIntent;
-    private IntervalTo intervalTo;
-    private CustomCircuitTO customCircuitTO;
     private DatabaseHelperCustomTimer mDatabaseHelper;
 
 
@@ -63,23 +59,30 @@ public class CustomTimerSelectActivity extends AppCompatActivity {
                 startActivity(setWorkoutIntent);
             }
         });
-        saveBtn.setOnClickListener(new View.OnClickListener() {
+        startBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setTimerIntent.putExtra("customCircuitTO", getIntent().getSerializableExtra("customCircuitTO"));
+
+                startActivity(setTimerIntent);
+            }
+        });
+        saveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 boolean insertData = mDatabaseHelper.addDataToCircuitTable((CustomCircuitTO) getIntent().getSerializableExtra("customCircuitTO"));
                 boolean insertData2 = mDatabaseHelper.addDataToWorkoutTable((CustomCircuitTO) getIntent().getSerializableExtra("customCircuitTO"));
-                if(insertData && insertData2){
+                if (insertData && insertData2) {
                     Toast.makeText(CustomTimerSelectActivity.this, "Workout Successfully Saved!", Toast.LENGTH_LONG).show();
-                }else{
+                } else {
                     Toast.makeText(CustomTimerSelectActivity.this, "An Error Occurred!", Toast.LENGTH_LONG).show();
                 }
-                startActivity(setTimerIntent);
             }
         });
     }
 
-    private void setActivityViews(){
+    private void setActivityViews() {
+        startBtn = findViewById(R.id.custom_start_Btn);
         saveBtn = findViewById(R.id.custom_save_Btn);
         timeBtn = findViewById(R.id.custom_timed_Btn);
         repBtn = findViewById(R.id.custom_reps_Btn);

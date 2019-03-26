@@ -10,11 +10,11 @@ import android.util.Log;
 import com.mg.TransferObjects.CustomCircuitTO;
 import com.mg.TransferObjects.IntervalTo;
 
-import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
-public class DatabaseHelperCustomTimer extends SQLiteOpenHelper{
+public class DatabaseHelperCustomTimer extends SQLiteOpenHelper {
     private static final String TAG = "DatabaseHelperCustom";
     //columns of the circuit table
     private static final String CIRCUIT_TABLE_NAME = "circuit_table_names";
@@ -49,25 +49,27 @@ public class DatabaseHelperCustomTimer extends SQLiteOpenHelper{
             + COLUMN_WORKOUT_CIRCUIT_ID + " INTEGER NOT NULL"
             + ");";
 
-    public DatabaseHelperCustomTimer(Context context){
-        super(context, DATABASE_NAME,null, DATABASE_VERSION);
+    public DatabaseHelperCustomTimer(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
-    public  void onCreate(SQLiteDatabase db){
+    public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_TABLE_WORKOUT);
         db.execSQL(SQL_CREATE_TABLE_CIRCUIT);
     }
+
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.w(TAG, "Upgrading the database from version " + oldVersion + " to " + newVersion);
-       //clears data
+        //clears data
         db.execSQL("DROP TABLE IF EXISTS " + CIRCUIT_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + WORKOUT_TABLE_NAME);
 
         //recreates tables
         onCreate(db);
     }
+
     public boolean addDataToCircuitTable(CustomCircuitTO customCircuitTO) {
 
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
@@ -80,56 +82,60 @@ public class DatabaseHelperCustomTimer extends SQLiteOpenHelper{
         contentValues.put(COLUMN_CIRCUIT_DATE_CREATED, dateCreated);
 
 
-        Log.d(TAG,"addData: Adding " + customCircuitTO.getName() + " to " + CIRCUIT_TABLE_NAME);
+        Log.d(TAG, "addData: Adding " + customCircuitTO.getName() + " to " + CIRCUIT_TABLE_NAME);
 
-        long result = db.insert(CIRCUIT_TABLE_NAME,null, contentValues);
+        long result = db.insert(CIRCUIT_TABLE_NAME, null, contentValues);
 
-        if(result == -1){
+        if (result == -1) {
             return false;
-        }else{
+        } else {
             return true;
         }
 
     }
-    public boolean addDataToWorkoutTable(CustomCircuitTO customCircuitTO){
+
+    public boolean addDataToWorkoutTable(CustomCircuitTO customCircuitTO) {
         List<IntervalTo> intervalList = customCircuitTO.getintervalToList();
 
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor data = db.rawQuery("SELECT " + COLUMN_CIRCUIT_ID + " FROM " + CIRCUIT_TABLE_NAME + " WHERE " + COLUMN_CIRCUIT_NAME + " = '" + customCircuitTO.getName() + "'",null);
+        Cursor data = db.rawQuery("SELECT " + COLUMN_CIRCUIT_ID + " FROM " + CIRCUIT_TABLE_NAME + " WHERE " + COLUMN_CIRCUIT_NAME + " = '" + customCircuitTO.getName() + "'", null);
         int circuitId = 0;
-        if(data.moveToNext()){
+        if (data.moveToNext()) {
             circuitId = data.getInt(0);
         }
         long result = 0;
-        for(IntervalTo intervalTo: intervalList){
+        for (IntervalTo intervalTo : intervalList) {
             ContentValues contentValuesWorkout = new ContentValues();
             contentValuesWorkout.put(COLUMN_WORKOUT_NAME, intervalTo.getIntervalName());
             contentValuesWorkout.put(COLUMN_WORKOUT_TIME, intervalTo.getIntervalTime());
             contentValuesWorkout.put(COLUMN_WORKOUT_REPETITIONS, intervalTo.getIntervalReps());
             contentValuesWorkout.put(COLUMN_WORKOUT_TYPE, intervalTo.getIntervalType());
             contentValuesWorkout.put(COLUMN_WORKOUT_CIRCUIT_ID, circuitId);
-            if(result != -1){
-                Log.d(TAG,"addData: Adding " + intervalTo.getIntervalName() + " to " + WORKOUT_TABLE_NAME);
-                result = db.insert(WORKOUT_TABLE_NAME,null, contentValuesWorkout);
+            if (result != -1) {
+                Log.d(TAG, "addData: Adding " + intervalTo.getIntervalName() + " to " + WORKOUT_TABLE_NAME);
+                result = db.insert(WORKOUT_TABLE_NAME, null, contentValuesWorkout);
             }
         }
-        if(result == -1){
+        if (result == -1) {
             return false;
-        }else{
+        } else {
             return true;
         }
     }
-    public Cursor getDatabaseContentCircuitTable(){
+
+    public Cursor getDatabaseContentCircuitTable() {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor data = db.rawQuery("SELECT * FROM " + CIRCUIT_TABLE_NAME,null);
+        Cursor data = db.rawQuery("SELECT * FROM " + CIRCUIT_TABLE_NAME, null);
         return data;
     }
-    public Cursor getDatabaseContentWorkoutTable(int circuitId){
+
+    public Cursor getDatabaseContentWorkoutTable(int circuitId) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor data = db.rawQuery("SELECT * FROM " + WORKOUT_TABLE_NAME + " WHERE " + COLUMN_WORKOUT_CIRCUIT_ID + " = " + circuitId,null);
+        Cursor data = db.rawQuery("SELECT * FROM " + WORKOUT_TABLE_NAME + " WHERE " + COLUMN_WORKOUT_CIRCUIT_ID + " = " + circuitId, null);
         return data;
     }
-    public void deleteDatabaseItem(int id, String name){
+
+    public void deleteDatabaseItem(int id, String name) {
         SQLiteDatabase db = this.getWritableDatabase();
         String query2 = "DELETE FROM " + WORKOUT_TABLE_NAME + " WHERE " + COLUMN_WORKOUT_CIRCUIT_ID + " = '" + id + "'";
         String query = "DELETE FROM " + CIRCUIT_TABLE_NAME + " WHERE " + COLUMN_CIRCUIT_ID + " = '" + id + "'";

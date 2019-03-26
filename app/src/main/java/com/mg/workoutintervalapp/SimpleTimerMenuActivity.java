@@ -1,13 +1,11 @@
 package com.mg.workoutintervalapp;
 
 import android.content.Intent;
-import android.os.CountDownTimer;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mg.Dialog.SaveSimpleWorkoutDialog;
@@ -29,6 +27,7 @@ public class SimpleTimerMenuActivity extends AppCompatActivity implements SaveSi
 
     private Intent simpleTimerIntent;
     DatabaseHelper mDatabaseHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,15 +51,15 @@ public class SimpleTimerMenuActivity extends AppCompatActivity implements SaveSi
                 intervalInput = findViewById(R.id.setIntervals);
 
                 String intervalInputString = intervalInput.getText().toString();
-                if(intervalInputString.isEmpty()){
+                if (intervalInputString.isEmpty()) {
                     intervalInputString = "1";
                 }
                 String workoutTimeMinutesString = workoutTimeMinutes.getText().toString();
-                if(workoutTimeMinutesString.isEmpty()){
+                if (workoutTimeMinutesString.isEmpty()) {
                     workoutTimeMinutesString = "00";
                 }
                 String workoutTimeSecondsString = workoutTimeSeconds.getText().toString();
-                if(workoutTimeSecondsString.isEmpty()){
+                if (workoutTimeSecondsString.isEmpty()) {
                     workoutTimeSecondsString = "00";
                 }
 
@@ -72,10 +71,10 @@ public class SimpleTimerMenuActivity extends AppCompatActivity implements SaveSi
 
                 String restTimeMinutesString = restTimeMinutes.getText().toString();
                 String restTimeSecondsString = restTimeSeconds.getText().toString();
-                if(restTimeMinutesString.isEmpty()){
+                if (restTimeMinutesString.isEmpty()) {
                     restTimeMinutesString = "00";
                 }
-                if(restTimeSecondsString.isEmpty()){
+                if (restTimeSecondsString.isEmpty()) {
                     restTimeSecondsString = "00";
                 }
                 restTimeToDecrement = (Integer.parseInt(restTimeMinutesString) * 60000) + Integer.parseInt(restTimeSecondsString) * 1000;
@@ -97,12 +96,13 @@ public class SimpleTimerMenuActivity extends AppCompatActivity implements SaveSi
         });
     }
 
-    private void openDialog(){
+    private void openDialog() {
         SaveSimpleWorkoutDialog saveWorkoutDialog = new SaveSimpleWorkoutDialog();
         saveWorkoutDialog.show(getSupportFragmentManager(), "WorkoutDialog");
     }
+
     @Override
-    public void applyToDatabase(String workoutName){
+    public void applyToDatabase(String workoutName) {
         workoutTimeMinutes = findViewById(R.id.setWorkoutTimeMinutes);
         workoutTimeSeconds = findViewById(R.id.setWorkoutTimeSeconds);
         intervalInput = findViewById(R.id.setIntervals);
@@ -121,11 +121,11 @@ public class SimpleTimerMenuActivity extends AppCompatActivity implements SaveSi
         String dbRestTime = restTimeMinutesString + ":" + restTimeSecondsString;
 
         //workout name, workout time, rest time, intervals
-        boolean insertData = mDatabaseHelper.addData(workoutName,dbWorkoutTime, dbRestTime, dbIntervals);
+        boolean insertData = mDatabaseHelper.addData(workoutName, dbWorkoutTime, dbRestTime, dbIntervals);
 
-        if(insertData){
+        if (insertData) {
             Toast.makeText(SimpleTimerMenuActivity.this, "Workout Successfully Saved!", Toast.LENGTH_LONG).show();
-        }else{
+        } else {
             Toast.makeText(SimpleTimerMenuActivity.this, "An Error Occurred!", Toast.LENGTH_LONG).show();
         }
     }

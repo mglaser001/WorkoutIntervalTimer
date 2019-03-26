@@ -1,19 +1,13 @@
 package com.mg.workoutintervalapp;
 
-import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Color;
-import android.support.constraint.ConstraintLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mg.Dialog.LoadWorkoutDialog;
-import com.mg.Dialog.SaveSimpleWorkoutDialog;
 import com.mg.database.DataBaseViewItems;
 import com.mg.database.DatabaseHelper;
 import com.mg.database.DatabaseItemAdapter;
@@ -65,6 +59,9 @@ public class LoadTimerActivity extends AppCompatActivity  implements LoadWorkout
 
             }
         });
+        if(dataBaseViewItems.isEmpty()){
+            Toast.makeText(this, "No Circuits Saved!", Toast.LENGTH_SHORT).show();
+        }
     }
     public void createList(Cursor databaseContent){
         while(databaseContent.moveToNext()){

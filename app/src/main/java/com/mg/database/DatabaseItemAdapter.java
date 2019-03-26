@@ -1,18 +1,13 @@
 package com.mg.database;
 
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.mg.workoutintervalapp.LoadTimerActivity;
 import com.mg.workoutintervalapp.R;
-import com.mg.workoutintervalapp.SimpleTimerMenuActivity;
 
 import java.util.ArrayList;
 
@@ -20,18 +15,21 @@ public class DatabaseItemAdapter extends RecyclerView.Adapter<DatabaseItemAdapte
     private ArrayList<DataBaseViewItems> mDataBaseViewItemsList;
     private OnItemClickListener mListener;
 
-    public interface OnItemClickListener{
+    public interface OnItemClickListener {
         void onItemClick(int position);
+
         void onDeleteClick(int position);
     }
-    public void setOnItemClickListener(OnItemClickListener listener){
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
         mListener = listener;
     }
-    public static class DBViewHolder extends RecyclerView.ViewHolder{
+
+    public static class DBViewHolder extends RecyclerView.ViewHolder {
         public TextView mWorkoutName;
         public ImageView mDeleteButton;
 
-        public DBViewHolder(View itemView, final OnItemClickListener listener){
+        public DBViewHolder(View itemView, final OnItemClickListener listener) {
             super(itemView);
             mWorkoutName = itemView.findViewById(R.id.workoutNameTV);
             mDeleteButton = itemView.findViewById(R.id.deleteButton);
@@ -40,9 +38,9 @@ public class DatabaseItemAdapter extends RecyclerView.Adapter<DatabaseItemAdapte
                 @Override
                 public void onClick(View v) {
                     //Toast.makeText(v.getContext(), "Workout Successfully Saved!", Toast.LENGTH_LONG).show();
-                    if(listener != null){
+                    if (listener != null) {
                         int position = getAdapterPosition();
-                        if(position != RecyclerView.NO_POSITION){
+                        if (position != RecyclerView.NO_POSITION) {
                             listener.onDeleteClick(position);
                         }
                     }
@@ -52,9 +50,9 @@ public class DatabaseItemAdapter extends RecyclerView.Adapter<DatabaseItemAdapte
                 @Override
                 public void onClick(View v) {
                     //Toast.makeText(v.getContext(), "Workout Successfully Saved!", Toast.LENGTH_LONG).show();
-                    if(listener != null){
+                    if (listener != null) {
                         int position = getAdapterPosition();
-                        if(position != RecyclerView.NO_POSITION){
+                        if (position != RecyclerView.NO_POSITION) {
                             listener.onItemClick(position);
                         }
                     }
@@ -62,11 +60,13 @@ public class DatabaseItemAdapter extends RecyclerView.Adapter<DatabaseItemAdapte
             });
         }
     }
-    public DatabaseItemAdapter(ArrayList<DataBaseViewItems> dataBaseViewItemsList){
+
+    public DatabaseItemAdapter(ArrayList<DataBaseViewItems> dataBaseViewItemsList) {
         mDataBaseViewItemsList = dataBaseViewItemsList;
     }
+
     @Override
-    public DBViewHolder onCreateViewHolder( ViewGroup parent, int i) {
+    public DBViewHolder onCreateViewHolder(ViewGroup parent, int i) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.database_item_layout, parent, false);
         DBViewHolder dbViewHolder = new DBViewHolder(v, mListener);
         return dbViewHolder;

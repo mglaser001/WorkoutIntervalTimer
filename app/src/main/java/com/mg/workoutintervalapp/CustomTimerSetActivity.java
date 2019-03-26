@@ -36,38 +36,37 @@ public class CustomTimerSetActivity extends AppCompatActivity {
 
         intervalTo = new IntervalTo();
 
-        if(getIntent().hasExtra("name")){
-            workoutType =  getIntent().getExtras().getString("name");
+        if (getIntent().hasExtra("name")) {
+            workoutType = getIntent().getExtras().getString("name");
         }
-        if(getIntent().hasExtra("customCircuitTO")){
+        if (getIntent().hasExtra("customCircuitTO")) {
             customCircuitTO = (CustomCircuitTO) getIntent().getSerializableExtra("customCircuitTO");
             intervalToList = customCircuitTO.getintervalToList();
-        }
-        else if(getIntent().hasExtra("circuitName")){
+        } else if (getIntent().hasExtra("circuitName")) {
             customCircuitTO = new CustomCircuitTO();
-            customCircuitTO.setName(getIntent ().getExtras().getString("circuitName"));
+            customCircuitTO.setName(getIntent().getExtras().getString("circuitName"));
         }
 
 
-        try{
-            if(workoutType.equalsIgnoreCase("timed")){
+        try {
+            if (workoutType.equalsIgnoreCase("timed")) {
                 workoutTitle.setText("TIMED INTERVAL");
                 customWorkoutRepTV.setVisibility(View.GONE);
                 customWorkoutRepET.setVisibility(View.GONE);
-            }else if(workoutType.equalsIgnoreCase("rep")){
+            } else if (workoutType.equalsIgnoreCase("rep")) {
                 workoutTitle.setText("UNTIMED REPETITION INTERVAL");
                 secondsET.setVisibility(View.GONE);
                 minutesET.setVisibility(View.GONE);
                 customWorkoutColonTV.setVisibility(View.GONE);
-            }else if(workoutType.equalsIgnoreCase("repTime")){
+            } else if (workoutType.equalsIgnoreCase("repTime")) {
                 workoutTitle.setText("TIMED REPETITION INTERVAL");
-            }else if(workoutType.equalsIgnoreCase("rest")){
+            } else if (workoutType.equalsIgnoreCase("rest")) {
                 workoutTitle.setText("REST");
                 nameET.setVisibility(View.GONE);
                 customWorkoutRepTV.setVisibility(View.GONE);
                 customWorkoutRepET.setVisibility(View.GONE);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("No Workout Type");
         }
         okBtn.setOnClickListener(new View.OnClickListener() {
@@ -76,37 +75,37 @@ public class CustomTimerSetActivity extends AppCompatActivity {
                 boolean continueToNextActivity = true;
                 intervalTo.setIntervalType(workoutTitle.getText().toString());
                 //Set Interval Names
-                if(workoutTitle.getText().toString().equalsIgnoreCase("REST")){
+                if (workoutTitle.getText().toString().equalsIgnoreCase("REST")) {
                     intervalTo.setIntervalName("REST");
-                }else{
+                } else {
                     intervalTo.setIntervalName(nameET.getText().toString());
                 }
 
                 //Set Interval Time or Tag for no time
-                if(workoutTitle.getText().toString().equalsIgnoreCase("UNTIMED REPETITION INTERVAL")){
+                if (workoutTitle.getText().toString().equalsIgnoreCase("UNTIMED REPETITION INTERVAL")) {
                     intervalTo.setIntervalTime("#NOTIME");
-                }else{
-                    intervalTo.setIntervalTime(minutesET.getText().toString() + ":"+ secondsET.getText().toString());
+                } else {
+                    intervalTo.setIntervalTime(minutesET.getText().toString() + ":" + secondsET.getText().toString());
                 }
 
                 //Set Interval Reps or Tag for no reps
-                if(workoutTitle.getText().toString().contains("REPETITION")){
+                if (workoutTitle.getText().toString().contains("REPETITION")) {
                     intervalTo.setIntervalReps(customWorkoutRepET.getText().toString());
-                }else{
+                } else {
                     intervalTo.setIntervalReps("#NOREPS");
                 }
                 intervalTo.setIntervalType(workoutType);
 
                 //Check for inputs
-                if(intervalTo.getIntervalReps().equals("")){
+                if (intervalTo.getIntervalReps().equals("")) {
                     Toast.makeText(CustomTimerSetActivity.this, "Enter Rep Amount!", Toast.LENGTH_LONG).show();
                     continueToNextActivity = false;
-                }else if(intervalTo.getIntervalName().equals("") || intervalTo.getIntervalName().equals("0")){
+                } else if (intervalTo.getIntervalName().equals("") || intervalTo.getIntervalName().equals("0")) {
                     Toast.makeText(CustomTimerSetActivity.this, "Enter A Workout Name!", Toast.LENGTH_LONG).show();
                     continueToNextActivity = false;
                 }
                 //Continues to next activity if inputs are filled
-                if(continueToNextActivity){
+                if (continueToNextActivity) {
                     intervalToList.add(intervalTo);
                     customCircuitTO.setintervalToList(intervalToList);
                     customTimerSelectIntent.putExtra("customCircuitTO", customCircuitTO);
@@ -116,7 +115,8 @@ public class CustomTimerSetActivity extends AppCompatActivity {
         });
 
     }
-    private void initializeActivity(){
+
+    private void initializeActivity() {
         customWorkoutColonTV = findViewById(R.id.CustomWorkoutColonTV);
         customWorkoutRepET = findViewById(R.id.CustomWorkoutRepET);
         customWorkoutRepTV = findViewById(R.id.CustomWorkoutRepTV);

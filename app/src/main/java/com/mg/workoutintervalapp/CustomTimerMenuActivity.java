@@ -1,8 +1,8 @@
 package com.mg.workoutintervalapp;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,7 +10,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mg.TransferObjects.CustomCircuitTO;
-import com.mg.TransferObjects.IntervalTo;
 
 public class CustomTimerMenuActivity extends AppCompatActivity {
 
@@ -43,12 +42,12 @@ public class CustomTimerMenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 boolean continueToSelect = true;
-                if(workoutNameET.getText().toString().equals("")){
+                if (workoutNameET.getText().toString().equals("")) {
                     continueToSelect = false;
                     Toast.makeText(CustomTimerMenuActivity.this, "Please Enter Circuit Name!", Toast.LENGTH_LONG).show();
                 }
 
-                if(continueToSelect){
+                if (continueToSelect) {
                     circuitName = workoutNameET.getText().toString();
                     customCircuitTO.setName(circuitName);
 
@@ -97,7 +96,7 @@ public class CustomTimerMenuActivity extends AppCompatActivity {
         });
     }
 
-    private void setActivityViews(){
+    private void setActivityViews() {
         workoutNameET = findViewById(R.id.custom_workoutName_ET);
         selectTitleTV = findViewById(R.id.custom_selectTitleTV);
         okBtn = findViewById(R.id.custom_ok_Btn);

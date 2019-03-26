@@ -10,51 +10,64 @@
 
     <EditText
         android:id="@+id/custom_workoutName_ET"
-        android:hint="Enter Workout Name"
-        android:textColor="@color/cardview_light_background"
-        android:textColorHint="@color/cardview_light_background"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/futura_book_font"
+        android:hint="Enter Workout Name"
+        android:textSize="30sp"
+        android:textColor="@color/cardview_light_background"
+        android:textColorHint="@color/cardview_light_background" />
+
     <TextView
         android:id="@+id/custom_selectTitleTV"
-        android:text="Select First Workout Type"
-        android:textSize="20sp"
-        android:textColor="@color/cardview_light_background"
-        android:textAlignment="center"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_below="@id/custom_workoutName_ET"/>/>
+        android:layout_below="@id/custom_workoutName_ET"
+        android:fontFamily="@font/futura_book_font"
+        android:text="Select First Workout Type"
+        android:textAlignment="center"
+        android:textColor="@color/cardview_light_background"
+        android:textSize="25sp" />/>
+
     <Button
         android:id="@+id/custom_reps_Btn"
-        android:text="Untimed Repetition Interval"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_below="@id/custom_selectTitleTV"/>
+        android:layout_below="@id/custom_selectTitleTV"
+        android:fontFamily="@font/futura_book_font"
+        android:text="Untimed Repetition Interval" />
+
     <Button
         android:id="@+id/custom_timed_Btn"
-        android:text="Timed Interval"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_below="@id/custom_reps_Btn"/>
+        android:layout_below="@id/custom_reps_Btn"
+        android:fontFamily="@font/futura_book_font"
+        android:text="Timed Interval" />
+
     <Button
         android:id="@+id/custom_repTimed_Btn"
-        android:text="Timed Repetition Interval"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_below="@id/custom_timed_Btn"/>
+        android:layout_below="@id/custom_timed_Btn"
+        android:fontFamily="@font/futura_book_font"
+        android:text="Timed Repetition Interval" />
+
     <Button
         android:id="@+id/custom_rest_Btn"
-        android:text="Rest Interval"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_below="@id/custom_repTimed_Btn"/>
+        android:layout_below="@id/custom_repTimed_Btn"
+        android:fontFamily="@font/futura_book_font"
+        android:text="Rest Interval" />
 
     <Button
         android:id="@+id/custom_ok_Btn"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_below="@id/custom_selectTitleTV"
+        android:fontFamily="@font/futura_book_font"
         android:text="Ok" />
 
 </RelativeLayout>

@@ -5,18 +5,20 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:hint="Workout Name"
         android:id="@+id/load_dialog_nametv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text = "Workout Name"
-        android:textSize="20dp"/>
+        android:fontFamily="@font/futura_book_font"
+        android:hint="Workout Name"
+        android:text="Workout Name"
+        android:textSize="20dp" />
 
     <TextView
         android:id="@+id/load_dialog_workouttimetv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/load_dialog_nametv"
+        android:fontFamily="@font/futura_book_font"
         android:hint="Workout Time"
         android:textSize="20dp" />
 
@@ -25,13 +27,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/load_dialog_workouttimetv"
+        android:fontFamily="@font/futura_book_font"
         android:hint="Rest Time"
         android:textSize="20dp" />
+
     <TextView
         android:id="@+id/load_dialog_workoutintervalstv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/load_dialog_workoutresttv"
+        android:fontFamily="@font/futura_book_font"
         android:hint="Intervals"
         android:textSize="20dp" />
 
@@ -40,6 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/load_dialog_workoutintervalstv"
+        android:fontFamily="@font/futura_book_font"
         android:hint="Date Created"
         android:textSize="20dp" />
 </RelativeLayout>

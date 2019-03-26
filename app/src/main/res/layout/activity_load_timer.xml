@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/cardview_dark_background"
     tools:context=".LoadTimerActivity">
     <RelativeLayout
         android:id="@+id/TitleContainer"
@@ -11,15 +12,18 @@
         android:layout_height="50dp"
         android:layout_margin="5dp"
         android:padding="5dp">
+
         <TextView
             android:id="@+id/TVNameTitle"
+            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:textSize="20sp"
-            android:textStyle="bold"
+            android:fontFamily="@font/futura_book_font"
+            android:text="Load Previous Workouts"
             android:textAlignment="center"
-            android:textColor="@android:color/black"
-            android:text="Load Previous Workouts"/>
+            android:textColor="@color/cardview_light_background"
+            android:textSize="20sp"
+            android:textStyle="bold" />
     </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView

@@ -12,14 +12,13 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.mg.workoutintervalapp.R;
-import com.mg.workoutintervalapp.SimpleTimerMenuActivity;
 
 public class SaveSimpleWorkoutDialog extends AppCompatDialogFragment {
     private EditText editTextWorkoutName;
     private SimpleWorkoutDialogListener listener;
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState){
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -39,9 +38,9 @@ public class SaveSimpleWorkoutDialog extends AppCompatDialogFragment {
 
                         //save data to database
                         String workoutName = editTextWorkoutName.getText().toString();
-                        if(workoutName.equals("")){
+                        if (workoutName.equals("")) {
                             Toast.makeText(getActivity(), "Please Enter A Name!", Toast.LENGTH_LONG).show();
-                        }else{
+                        } else {
                             listener.applyToDatabase(workoutName);
                         }
                     }
@@ -52,15 +51,16 @@ public class SaveSimpleWorkoutDialog extends AppCompatDialogFragment {
     }
 
     @Override
-    public void onAttach(Context context){
+    public void onAttach(Context context) {
         super.onAttach(context);
         try {
-            listener = (SimpleWorkoutDialogListener)context;
+            listener = (SimpleWorkoutDialogListener) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + "must implement SimpleworkoutDialogListener");
         }
     }
-    public interface SimpleWorkoutDialogListener{
+
+    public interface SimpleWorkoutDialogListener {
         void applyToDatabase(String workoutName);
     }
 }

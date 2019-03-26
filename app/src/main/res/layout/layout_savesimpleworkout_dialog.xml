@@ -4,8 +4,9 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:hint="Workout Name"
         android:id="@+id/edit_workoutname"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/futura_book_font"
+        android:hint="Enter Workout Name" />
 </RelativeLayout>

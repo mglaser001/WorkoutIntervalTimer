@@ -1,21 +1,17 @@
 package com.mg.workoutintervalapp;
 
 import android.database.Cursor;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.method.ScrollingMovementMethod;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mg.Dialog.LoadCustomWorkoutDialog;
-import com.mg.Dialog.LoadWorkoutDialog;
 import com.mg.TransferObjects.CustomCircuitTO;
 import com.mg.TransferObjects.IntervalTo;
-import com.mg.database.DataBaseViewItems;
 import com.mg.database.DatabaseCustomItemAdapter;
 import com.mg.database.DatabaseHelperCustomTimer;
-import com.mg.database.DatabaseItemAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,16 +47,19 @@ public class LoadCustomTimerActivity extends AppCompatActivity implements LoadCu
             @Override
             public void onDeleteClick(int position) {
                 selectedDBItem = customCircuitTOList.get(position);
-                databaseHelper.deleteDatabaseItem(selectedDBItem.getId(),selectedDBItem.getName());
+                databaseHelper.deleteDatabaseItem(selectedDBItem.getId(), selectedDBItem.getName());
                 customCircuitTOList.remove(position);
 
                 mAdapter.notifyItemRemoved(position);
 
             }
         });
-
+        if (customCircuitTOList.isEmpty()) {
+            Toast.makeText(this, "No Circuits Saved!", Toast.LENGTH_SHORT).show();
+        }
     }
-    private void buildRecyclerView(){
+
+    private void buildRecyclerView() {
         mRecyclerView = findViewById(R.id.DBRecyclerView);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
@@ -70,8 +69,9 @@ public class LoadCustomTimerActivity extends AppCompatActivity implements LoadCu
         mRecyclerView.setAdapter(mAdapter);
 
     }
-    private void mapDatabaseContentToCircuitObject(Cursor databaseCircuitContent){
-        while(databaseCircuitContent.moveToNext()){
+
+    private void mapDatabaseContentToCircuitObject(Cursor databaseCircuitContent) {
+        while (databaseCircuitContent.moveToNext()) {
             CustomCircuitTO customCircuitTO = new CustomCircuitTO();
             customCircuitTO.setId(databaseCircuitContent.getInt(0));
             customCircuitTO.setName(databaseCircuitContent.getString(1));
@@ -79,7 +79,7 @@ public class LoadCustomTimerActivity extends AppCompatActivity implements LoadCu
 
             Cursor databaseWorkoutContent = databaseHelper.getDatabaseContentWorkoutTable(customCircuitTO.getId());
             List<IntervalTo> intervalList = new ArrayList<>();
-            while(databaseWorkoutContent.moveToNext()){
+            while (databaseWorkoutContent.moveToNext()) {
                 IntervalTo intervalTo = new IntervalTo();
                 intervalTo.setIntervalName(databaseWorkoutContent.getString(1));
                 intervalTo.setIntervalTime(databaseWorkoutContent.getString(2));
@@ -91,12 +91,16 @@ public class LoadCustomTimerActivity extends AppCompatActivity implements LoadCu
             customCircuitTOList.add(customCircuitTO);
         }
     }
-    private void openDialog(){
+
+    private void openDialog() {
         LoadCustomWorkoutDialog loadWorkoutDialog = new LoadCustomWorkoutDialog();
         loadWorkoutDialog.show(getSupportFragmentManager(), "WorkoutDialog");
     }
+
     @Override
-    public CustomCircuitTO dialogListener(){
+    public CustomCircuitTO dialogListener() {
         return selectedDBItem;
-    };
+    }
+
+    ;
 }

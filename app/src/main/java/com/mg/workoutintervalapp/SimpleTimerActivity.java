@@ -1,13 +1,11 @@
 package com.mg.workoutintervalapp;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Color;
 import android.media.MediaPlayer;
+import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -42,21 +40,21 @@ public class SimpleTimerActivity extends AppCompatActivity {
         timerLayout = findViewById(R.id.simpleTimerLayout);
 
 
-        bell = MediaPlayer.create(this,R.raw.boxingbell);
+        bell = MediaPlayer.create(this, R.raw.boxingbell);
         intervalText = findViewById(R.id.interval_Text);
         countdownText = findViewById(R.id.countdown_Text);
 
         backToMenuButton = findViewById(R.id.backSimpleMenu_Btn);
         resetWorkoutButton = findViewById(R.id.simpleTimerReset_Btn);
 
-        if(getIntent().hasExtra("timeToDecrement")){
+        if (getIntent().hasExtra("timeToDecrement")) {
             timeToDecrement = getIntent().getExtras().getLong("timeToDecrement");
 
         }
-        if(getIntent().hasExtra("intervalsLeft")){
+        if (getIntent().hasExtra("intervalsLeft")) {
             intervalsLeft = getIntent().getExtras().getInt("intervalsLeft");
         }
-        if(getIntent().hasExtra("restTimeToDecrement")){
+        if (getIntent().hasExtra("restTimeToDecrement")) {
             timeToDecrement_Rest = getIntent().getExtras().getLong("restTimeToDecrement");
         }
         intervalsLeftforReset = intervalsLeft;
@@ -79,13 +77,14 @@ public class SimpleTimerActivity extends AppCompatActivity {
             }
         });
     }
+
     private void startInterval() {
         updateTimerText("Get Ready");
         updateInterval(Integer.toString(intervalsLeft));
         stopTime = false;
         timerLayout.setBackgroundColor(Color.parseColor("#7D8E32"));
 
-        countDownTimer2 = new CountDownTimer(threeSecondPrepare+200, 1000) {
+        countDownTimer2 = new CountDownTimer(threeSecondPrepare + 200, 1000) {
             @Override
             public void onTick(long l) {
                 threeSecondPrepare = l;
@@ -109,7 +108,7 @@ public class SimpleTimerActivity extends AppCompatActivity {
         countDownTimer = new CountDownTimer(timeLeftInMilliseconds + 200, 1000) {
             @Override
             public void onTick(long l) {
-                if(!stopTime){
+                if (!stopTime) {
                     updateTimer(l);
                 }
             }
@@ -119,13 +118,14 @@ public class SimpleTimerActivity extends AppCompatActivity {
 
                 countdownText.setText("0:00");
                 intervalsLeft--;
-                if(intervalsLeft > 0) {
+                if (intervalsLeft > 0) {
                     startRest();
                 }
             }
         }.start();
 
     }
+
     private void startRest() {
         updateRestTitle();
         timeLeftInMilliseconds = timeToDecrement_Rest;
@@ -134,7 +134,7 @@ public class SimpleTimerActivity extends AppCompatActivity {
         countDownTimer2 = new CountDownTimer(timeLeftInMilliseconds + 200, 1000) {
             @Override
             public void onTick(long l) {
-                if(!stopTime){
+                if (!stopTime) {
                     updateTimer(l);
                 }
             }
@@ -161,24 +161,30 @@ public class SimpleTimerActivity extends AppCompatActivity {
 
         countdownText.setText(timeLeftText);
     }
-    private void resetTimers(){
-        if(countDownTimer2 != null){
+
+    private void resetTimers() {
+        if (countDownTimer2 != null) {
             countDownTimer2.cancel();
         }
-        if(countDownTimer != null){
+        if (countDownTimer != null) {
             countDownTimer.cancel();
         }
     }
+
     public void updateTimerText(String text) {
         countdownText.setText(text);
     }
+
     private void updateRestTitle() {
         intervalText.setText("Rest");
     }
+
     private void updateInterval(String intervals) {
         intervalText.setText("Round " + intervals);
     }
-    @Override public void onBackPressed(){
+
+    @Override
+    public void onBackPressed() {
         finish();
     }
 }

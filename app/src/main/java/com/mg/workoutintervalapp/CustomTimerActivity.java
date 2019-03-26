@@ -3,10 +3,9 @@ package com.mg.workoutintervalapp;
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.MediaPlayer;
-import android.os.CountDownTimer;
-import android.support.v4.content.IntentCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
@@ -35,7 +34,7 @@ public class CustomTimerActivity extends AppCompatActivity {
 
         initializeActivityItems();
 
-        if(getIntent().hasExtra("customCircuitTO")){
+        if (getIntent().hasExtra("customCircuitTO")) {
             customCircuitTO = (CustomCircuitTO) getIntent().getSerializableExtra("customCircuitTO");
         }
         //Custom Timer Start
@@ -53,13 +52,14 @@ public class CustomTimerActivity extends AppCompatActivity {
         });
 
     }
+
     private void startInterval() {
         updateTimerText("Get Ready");
         updateIntervalTitle("");
 
         timerLayout.setBackgroundColor(Color.parseColor("#7D8E32"));
 
-        countDownTimer2 = new CountDownTimer(threeSecondPrepare+200, 1000) {
+        countDownTimer2 = new CountDownTimer(threeSecondPrepare + 200, 1000) {
             @Override
             public void onTick(long l) {
                 threeSecondPrepare = l;
@@ -69,7 +69,7 @@ public class CustomTimerActivity extends AppCompatActivity {
             public void onFinish() {
 //                bell.start();
                 IntervalTo firstInterval = customCircuitTO.getintervalToList().get(0);
-                startTimer(firstInterval , 0);
+                startTimer(firstInterval, 0);
             }
         }.start();
     }
@@ -80,16 +80,16 @@ public class CustomTimerActivity extends AppCompatActivity {
         updateIntervalTitle(intervalTo.getIntervalName());
         repText.setVisibility(View.GONE);
         //No Timer Running, Type = reps
-        if(intervalTo.getIntervalTime().equalsIgnoreCase("#NOTIME")){
+        if (intervalTo.getIntervalTime().equalsIgnoreCase("#NOTIME")) {
             updateTimerText(intervalTo.getIntervalReps() + " REPS");
             nextWorkoutButton.setVisibility(View.VISIBLE);
             nextWorkoutButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     pos++;
-                    if(pos < customCircuitTO.getintervalToList().size()){
+                    if (pos < customCircuitTO.getintervalToList().size()) {
                         startTimer(customCircuitTO.getintervalToList().get(pos), pos);
-                    }else{
+                    } else {
                         nextWorkoutButton.setVisibility(View.GONE);
                         updateTimerText("DONE!");
                     }
@@ -98,8 +98,8 @@ public class CustomTimerActivity extends AppCompatActivity {
 
         }
         //Timer Running Type = timedReps, timed, rest
-        else{
-            if(!intervalTo.getIntervalReps().contains("#NOREPS")){
+        else {
+            if (!intervalTo.getIntervalReps().contains("#NOREPS")) {
                 repText.setVisibility(View.VISIBLE);
                 repText.setText(intervalTo.getIntervalReps() + " REPS IN TIME");
             }
@@ -116,9 +116,9 @@ public class CustomTimerActivity extends AppCompatActivity {
                 public void onFinish() {
                     countdownText.setText("0:00");
                     pos++;
-                    if(pos < customCircuitTO.getintervalToList().size()){
+                    if (pos < customCircuitTO.getintervalToList().size()) {
                         startTimer(customCircuitTO.getintervalToList().get(pos), pos);
-                    }else{
+                    } else {
                         updateTimerText("DONE!");
                     }
                 }
@@ -140,24 +140,27 @@ public class CustomTimerActivity extends AppCompatActivity {
 
         countdownText.setText(timeLeftText);
     }
-    private long convertToMilliseconds(String timeString){
+
+    private long convertToMilliseconds(String timeString) {
         String minuteString = timeString.split(":")[0];
         String secondString = timeString.split(":")[1];
 
         Integer minutes = Integer.parseInt(minuteString);
         Integer seconds = Integer.parseInt(secondString);
 
-        long milliseconds = (minutes*60000) + (seconds*1000);
+        long milliseconds = (minutes * 60000) + (seconds * 1000);
         return milliseconds;
     }
-    private void resetTimers(){
-        if(countDownTimer2 != null){
+
+    private void resetTimers() {
+        if (countDownTimer2 != null) {
             countDownTimer2.cancel();
         }
-        if(countDownTimer != null){
+        if (countDownTimer != null) {
             countDownTimer.cancel();
         }
     }
+
     private void updateTimerText(String text) {
         countdownText.setText(text);
     }
@@ -165,10 +168,11 @@ public class CustomTimerActivity extends AppCompatActivity {
     private void updateIntervalTitle(String intervalName) {
         intervalNameText.setText(intervalName);
     }
-    private void initializeActivityItems(){
+
+    private void initializeActivityItems() {
         timerLayout = findViewById(R.id.customTimerLayout);
 
-        bell = MediaPlayer.create(this,R.raw.boxingbell);
+        bell = MediaPlayer.create(this, R.raw.boxingbell);
         titleText = findViewById(R.id.CustomCircuitNameTV);
         intervalNameText = findViewById(R.id.CustomCircuitIntervalNameTV);
         countdownText = findViewById(R.id.CustomCircuitTimerTV);
@@ -178,10 +182,14 @@ public class CustomTimerActivity extends AppCompatActivity {
         nextWorkoutButton.setVisibility(View.GONE);
         repText.setVisibility(View.GONE);
     }
-    @Override public void onBackPressed(){
-        endActivityStack();
+
+    @Override
+    public void onBackPressed() {
+        resetTimers();
+        finish();
     }
-    private void endActivityStack(){
+
+    private void endActivityStack() {
         //End Activity Stack
         Intent mainIntent = new Intent(getApplicationContext(), MainActivity.class);
         mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
