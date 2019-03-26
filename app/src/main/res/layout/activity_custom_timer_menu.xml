@@ -11,6 +11,7 @@
     <EditText
         android:id="@+id/custom_workoutName_ET"
         android:hint="Enter Workout Name"
+        android:textColor="@color/cardview_light_background"
         android:textColorHint="@color/cardview_light_background"
         android:layout_width="match_parent"
         android:layout_height="60dp"

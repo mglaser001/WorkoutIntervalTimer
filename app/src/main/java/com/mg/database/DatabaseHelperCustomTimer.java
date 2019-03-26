@@ -131,10 +131,11 @@ public class DatabaseHelperCustomTimer extends SQLiteOpenHelper{
     }
     public void deleteDatabaseItem(int id, String name){
         SQLiteDatabase db = this.getWritableDatabase();
-//ended here
+        String query2 = "DELETE FROM " + WORKOUT_TABLE_NAME + " WHERE " + COLUMN_WORKOUT_CIRCUIT_ID + " = '" + id + "'";
         String query = "DELETE FROM " + CIRCUIT_TABLE_NAME + " WHERE " + COLUMN_CIRCUIT_ID + " = '" + id + "'";
         Log.d(TAG, "delete query: " + query);
         Log.d(TAG, "deleting from: " + name);
+        db.execSQL(query2);
         db.execSQL(query);
     }
 }
